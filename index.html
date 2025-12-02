@@ -146,6 +146,7 @@
       if (video && playerPlay) {
         video.addEventListener('play', () => { playerPlay.textContent = 'Pause'; });
         video.addEventListener('pause', () => { playerPlay.textContent = 'Play'; });
+      }
 
       // Replay button restarts video and scrolls to top
       if (replayBtn) {
