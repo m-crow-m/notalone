@@ -13,7 +13,7 @@ body {
   color: #fff;
   overflow-x: hidden;
   width: 100%;
-  height: 100%;
+  /* removed height: 100% to allow body to expand with content */
 }
 
 /* DEBUG: Show all major containers */
@@ -459,15 +459,17 @@ h1 {
   z-index: 100;
   color: #fff;
   background: transparent;
+  width: 100%;
+  min-height: 200vh;
   outline: 3px solid yellow !important; /* DEBUG */
 }
 
 .foreground .page {
   max-width: 900px;
   margin: 0 auto;
-  padding: 40vh 24px 120px; /* reduce for debugging so text appears sooner */
+  padding: 8vh 24px 120px;
   background: transparent;
-  min-height: 100vh;
+  min-height: auto;
   outline: 3px solid lime !important; /* DEBUG */
 }
 
