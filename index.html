@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>You Are Not Alone – Film</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="stylesheet" href="styles/main.css?v=2025c" />
+  <link rel="stylesheet" href="styles/main.css?v=2025d" />
 </head>
 <body>
   <!-- Noise layer (toggleable) -->
@@ -68,15 +68,11 @@
     </div>
   </div>
 
-  <!-- Sticky controls on the landing page -->
-  <button id="open-player" class="open-player" aria-label="Open player">Open Player</button>
-
-  <!-- Fullscreen player controls (appear when player is active/fullscreen) -->
-  <div id="player-controls" class="player-controls" hidden>
-    <div class="player-row">
-      <button id="player-play" class="control-button">Play</button>
-      <button id="player-noise" class="control-button">Noise</button>
-    </div>
+  <!-- Top controls -->
+  <div class="top-controls">
+    <button id="open-player" class="control-button" aria-label="Open player">Open Player</button>
+    <button id="player-play" class="control-button">Play</button>
+    <button id="player-noise" class="control-button">Noise</button>
   </div>
 
   <script>
@@ -84,7 +80,6 @@
       const video = document.getElementById('film');
       const noise = document.getElementById('noise-overlay');
       const openPlayer = document.getElementById('open-player');
-      const playerControls = document.getElementById('player-controls');
       const playerPlay = document.getElementById('player-play');
       const playerNoise = document.getElementById('player-noise');
       const replayBtn = document.getElementById('replay-btn');
@@ -108,7 +103,7 @@
         localStorage.setItem('noiseVisible', String(on));
       }
 
-      // Open fullscreen player and show controls
+      // Open fullscreen player
       openPlayer.addEventListener('click', async () => {
         if (!video) return;
         // This is a user gesture — attempt to unmute and resume playback with sound
@@ -123,13 +118,11 @@
         } catch (err) {
           // ignore fullscreen errors
         }
-        playerControls.hidden = false;
-        openPlayer.setAttribute('aria-expanded', 'true');
         playerPlay.textContent = video.paused ? 'Play' : 'Pause';
         playerPlay.focus();
       });
 
-      // Play/pause in fullscreen controls
+      // Play/pause toggle
       playerPlay.addEventListener('click', () => {
         if (!video) return;
         if (video.paused) video.play(); else video.pause();
@@ -144,15 +137,15 @@
         }
       });
 
-      // Player noise toggle mirrors the landing noise button
+      // Noise toggle
       playerNoise.addEventListener('click', () => {
         toggleNoise();
         playerNoise.focus();
       });
 
       // Update play button text on play/pause
-      video.addEventListener('play', () => { if (playerControls) playerPlay.textContent = 'Pause'; });
-      video.addEventListener('pause', () => { if (playerControls) playerPlay.textContent = 'Play'; });
+      video.addEventListener('play', () => { playerPlay.textContent = 'Pause'; });
+      video.addEventListener('pause', () => { playerPlay.textContent = 'Play'; });
 
       // Replay button restarts video and scrolls to top
       if (replayBtn) {
@@ -162,25 +155,6 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
-
-      // Hide controls when leaving fullscreen
-      document.addEventListener('fullscreenchange', () => {
-        if (!document.fullscreenElement) {
-          playerControls.hidden = true;
-          openPlayer.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      // Escape key handling: if fullscreen, exit and hide controls
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' || e.key === 'Esc') {
-          if (document.fullscreenElement) {
-            document.exitFullscreen();
-            playerControls.hidden = true;
-            openPlayer.setAttribute('aria-expanded', 'false');
-          }
-        }
-      });
     });
   </script>
 

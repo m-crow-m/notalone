@@ -53,6 +53,7 @@ body {
   width: 100%;
   background: transparent;
   color: #fff;
+  margin-top: 100vh;
 }
 
 .foreground .page {
@@ -122,59 +123,37 @@ body {
   line-height: 1.8;
 }
 
-/* Open Player button (top-right) */
-.open-player {
+/* Top controls (all three buttons together) */
+.top-controls {
   position: fixed;
-  top: 18px;
-  right: 18px;
+  top: 20px;
+  right: 20px;
   z-index: 1000;
+  display: flex;
+  gap: 10px;
+  background: rgba(0,0,0,0.6);
+  padding: 12px 16px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+
+.top-controls .control-button {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
   padding: 10px 16px;
   border-radius: 8px;
-  background: rgba(0,0,0,0.7);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.15);
   cursor: pointer;
-  backdrop-filter: blur(8px);
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   transition: all 200ms ease;
 }
 
-.open-player:hover {
-  background: rgba(0,0,0,0.85);
+.top-controls .control-button:hover {
+  background: rgba(255,255,255,0.1);
   border-color: rgba(255,255,255,0.3);
   transform: translateY(-2px);
-}
-
-/* Fullscreen player controls */
-.player-controls {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 20px;
-  pointer-events: none;
-}
-
-.player-controls .player-row {
-  pointer-events: auto;
-  background: rgba(0,0,0,0.6);
-  padding: 12px 16px;
-  border-radius: 10px;
-  display: flex;
-  gap: 10px;
-}
-
-.player-controls .control-button {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
 .replay-button {
