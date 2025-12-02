@@ -69,6 +69,12 @@ body {
   margin-left: 8px;
 }
 
+.play-overlay svg {
+  width: 60px;
+  height: 60px;
+  color: #fff;
+}
+
 .play-overlay.hidden {
   display: none;
 }
