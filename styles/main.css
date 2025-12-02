@@ -50,7 +50,7 @@ body {
   position: relative;
   z-index: 10;
   width: 100%;
-  background: #ff00ff; /* DEBUG: bright magenta */
+  background: transparent;
   color: #fff;
 }
 
@@ -58,7 +58,11 @@ body {
   max-width: 900px;
   margin: 0 auto;
   padding: 8vh 24px 120px;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent dark overlay for readability */
+}
+
+.foreground h1, .foreground .meta, .foreground p, .foreground h2 {
+  text-shadow: 0 2px 18px rgba(0,0,0,0.8);
 }
 
 .foreground header {
