@@ -9,39 +9,42 @@
 <body>
   <!-- VIDEO GATE -->
   <section id="video-gate">
-    <div class="gate-ambient"></div>
-    <div class="gate-inner">
-      <div class="video-shell">
-        <video
-          id="film"
-          controls
-          autoplay
-          muted
-          playsinline
-          poster="assets/images/poster-frame.jpg"
-        >
-          <source src="https://github.com/m-crow-m/notalone/releases/download/v1.0/you-are-not-alone.mp4" type="video/mp4" />
-          Your browser does not support video playback.
-        </video>
+    <video
+      id="film"
+      autoplay
+      muted
+      playsinline
+      poster="assets/images/poster-frame.jpg"
+    >
+      <source src="https://github.com/m-crow-m/notalone/releases/download/v1.0/you-are-not-alone.mp4" type="video/mp4" />
+      Your browser does not support video playback.
+    </video>
 
-        <div class="control-bar" aria-label="Custom video controls">
-          <button type="button" id="play-toggle" class="control-button">Pause</button>
-          <button type="button" id="mute-toggle" class="control-button">Sound on</button>
-          <button type="button" id="restart" class="control-button">Restart</button>
-          <div class="progress" aria-hidden="true">
-            <span id="progress-fill"></span>
-          </div>
+    <!-- Large play button overlay for first-time users -->
+    <button type="button" id="play-overlay" class="play-overlay" aria-label="Play video">
+      <span class="play-overlay-icon">▶</span>
+    </button>
+
+    <!-- Video overlay controls -->
+    <div class="video-overlay">
+      <div class="video-controls">
+        <button type="button" id="play-toggle" class="control-button" aria-label="Play/Pause">
+          <span class="control-icon">▶</span>
+        </button>
+        <button type="button" id="mute-toggle" class="control-button" aria-label="Mute/Unmute">
+          <span class="control-icon">🔊</span>
+        </button>
+        <div class="progress" aria-hidden="true">
+          <span id="progress-fill"></span>
         </div>
+        <button type="button" id="skip-link" class="skip-button" aria-label="Skip to site">
+          SKIP
+        </button>
       </div>
 
       <p class="gate-note">
-        Best experienced in a dark room with headphones.
+        Best experienced with headphones
       </p>
-
-      <!-- Optional escape hatch if you want it -->
-      <button type="button" id="skip-link" class="skip-link">
-        Skip to site
-      </button>
     </div>
   </section>
 
@@ -86,12 +89,18 @@
       <section class="section" id="credits">
         <h2>Credits</h2>
         <p class="credits">
-          Concept, direction, edit: [Your name]<br />
+          Concept, direction, edit: Jaeden Crow<br />
           Course: AI and Design, Eastern Washington University<br />
           Instructor: Travis Masingale<br />
           Tools: Pika, Suno, Premiere Pro, Adobe suite
         </p>
       </section>
+
+      <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.15);">
+        <button type="button" id="replay-btn" class="replay-button">
+          REPLAY VIDEO
+        </button>
+      </div>
     </div>
   </div>
 
@@ -103,8 +112,16 @@
       const skipLink = document.getElementById("skip-link");
       const playToggle = document.getElementById("play-toggle");
       const muteToggle = document.getElementById("mute-toggle");
-      const restartButton = document.getElementById("restart");
       const progressFill = document.getElementById("progress-fill");
+      const playOverlay = document.getElementById("play-overlay");
+      
+      let gateClosed = false;
+
+      function hidePlayOverlay() {
+        if (playOverlay) {
+          playOverlay.classList.add("hidden");
+        }
+      }
 
       function openSite() {
         if (gateClosed) return;
@@ -112,49 +129,63 @@
 
         if (video) {
           video.pause();
-          video.classList.add("hidden");
+          gate.classList.add("hidden");
         }
 
         if (siteContent) {
           siteContent.classList.remove("hidden");
         }
 
-        revealAfterFade();
         localStorage.setItem("videoWatched", "true");
         window.scrollTo({ top: 0, behavior: "instant" });
       }
 
-      function updateProgress() {
-        if (!video || !progressFill || !video.duration) return;
-        const percent = (video.currentTime / video.duration) * 100;
-        progressFill.style.width = `${percent}%`;
-      }
-
-      // If viewer has already watched once, open the site directly
-      if (localStorage.getItem("videoWatched") === "true") {
-        openSite();
+      // Check if viewer has already watched - only set up event listeners if they haven't
+      const alreadyWatched = localStorage.getItem("videoWatched") === "true";
+      
+      if (alreadyWatched) {
+        // If they've watched before, show the site instead
+        gate.classList.add("hidden");
+        siteContent.classList.remove("hidden");
+        gateClosed = true;
       } else {
+        // First time viewer - show the video gate
         if (video) {
+          // Try to autoplay
+          video.play().catch(err => {
+            console.log("Autoplay failed, user must click play button");
+          });
+
+          // Hide overlay when video starts playing
+          video.addEventListener("play", () => {
+            hidePlayOverlay();
+            if (playToggle) playToggle.innerHTML = '<span class="control-icon">⏸</span>';
+          });
+
           video.addEventListener("ended", openSite);
+          
           video.addEventListener("timeupdate", () => {
             if (!progressFill || !video.duration) return;
             const percent = (video.currentTime / video.duration) * 100;
             progressFill.style.width = `${percent}%`;
           });
 
-          video.addEventListener("play", () => {
-            if (playToggle) playToggle.textContent = "Pause";
-          });
-
           video.addEventListener("pause", () => {
-            if (playToggle) playToggle.textContent = "Play";
+            if (playToggle) playToggle.innerHTML = '<span class="control-icon">▶</span>';
           });
 
           video.addEventListener("volumechange", () => {
             if (!muteToggle) return;
-            muteToggle.textContent = video.muted ? "Sound on" : "Mute";
+            muteToggle.innerHTML = video.muted ? '<span class="control-icon">🔇</span>' : '<span class="control-icon">🔊</span>';
           });
         }
+      }
+
+      // Play overlay button
+      if (playOverlay && video) {
+        playOverlay.addEventListener("click", () => {
+          video.play();
+        });
       }
 
       if (skipLink) {
@@ -180,14 +211,20 @@
       if (muteToggle && video) {
         muteToggle.addEventListener("click", () => {
           video.muted = !video.muted;
-          muteToggle.textContent = video.muted ? "Sound on" : "Mute";
+          muteToggle.innerHTML = video.muted ? '<span class="control-icon">🔇</span>' : '<span class="control-icon">🔊</span>';
         });
       }
 
-      if (restartButton && video) {
-        restartButton.addEventListener("click", () => {
+      // Replay button functionality
+      const replayBtn = document.getElementById("replay-btn");
+      if (replayBtn) {
+        replayBtn.addEventListener("click", () => {
+          gateClosed = false;
+          siteContent.classList.add("hidden");
+          gate.classList.remove("hidden");
           video.currentTime = 0;
           video.play();
+          window.scrollTo({ top: 0, behavior: "smooth" });
         });
       }
     });
