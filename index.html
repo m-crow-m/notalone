@@ -11,19 +11,10 @@
   <section id="video-gate">
     <div class="gate-ambient"></div>
     <div class="gate-inner">
-      <header class="gate-header">
-        <div class="brand-mark">
-          <span class="dot"></span>
-          You Are Not Alone
-        </div>
-        <button type="button" id="skip-link" class="skip-link" aria-label="Skip the film and enter the site">
-          Skip intro
-        </button>
-      </header>
-
       <div class="video-shell">
         <video
           id="film"
+          controls
           autoplay
           muted
           playsinline
@@ -34,16 +25,23 @@
         </video>
 
         <div class="control-bar" aria-label="Custom video controls">
-          <button type="button" id="play-toggle" class="control-button ghost">Pause</button>
+          <button type="button" id="play-toggle" class="control-button">Pause</button>
+          <button type="button" id="mute-toggle" class="control-button">Sound on</button>
+          <button type="button" id="restart" class="control-button">Restart</button>
           <div class="progress" aria-hidden="true">
             <span id="progress-fill"></span>
           </div>
-          <button type="button" id="mute-toggle" class="control-button ghost icon">Sound on</button>
-          <button type="button" id="restart" class="control-button ghost icon">Restart</button>
         </div>
-
-        <p class="gate-note">Best experienced in a dark room with headphones.</p>
       </div>
+
+      <p class="gate-note">
+        Best experienced in a dark room with headphones.
+      </p>
+
+      <!-- Optional escape hatch if you want it -->
+      <button type="button" id="skip-link" class="skip-link">
+        Skip to site
+      </button>
     </div>
   </section>
 
@@ -108,20 +106,6 @@
       const restartButton = document.getElementById("restart");
       const progressFill = document.getElementById("progress-fill");
 
-      let gateClosed = false;
-
-      function revealAfterFade() {
-        if (!gate) return;
-        gate.classList.add("gate-exit");
-        gate.addEventListener(
-          "transitionend",
-          () => {
-            gate.classList.add("hidden");
-          },
-          { once: true }
-        );
-      }
-
       function openSite() {
         if (gateClosed) return;
         gateClosed = true;
@@ -149,28 +133,28 @@
       // If viewer has already watched once, open the site directly
       if (localStorage.getItem("videoWatched") === "true") {
         openSite();
-      } else if (video) {
-        video.addEventListener("ended", openSite);
-        video.addEventListener("timeupdate", updateProgress);
-        video.addEventListener("loadedmetadata", updateProgress);
+      } else {
+        if (video) {
+          video.addEventListener("ended", openSite);
+          video.addEventListener("timeupdate", () => {
+            if (!progressFill || !video.duration) return;
+            const percent = (video.currentTime / video.duration) * 100;
+            progressFill.style.width = `${percent}%`;
+          });
 
-        video.addEventListener("play", () => {
-          if (playToggle) playToggle.textContent = "Pause";
-        });
+          video.addEventListener("play", () => {
+            if (playToggle) playToggle.textContent = "Pause";
+          });
 
-        video.addEventListener("pause", () => {
-          if (playToggle) playToggle.textContent = "Play";
-        });
+          video.addEventListener("pause", () => {
+            if (playToggle) playToggle.textContent = "Play";
+          });
 
-        video.addEventListener("volumechange", () => {
-          if (!muteToggle) return;
-          muteToggle.textContent = video.muted ? "Sound on" : "Mute";
-        });
-
-        // Attempt autoplay; if blocked, show play label instead of pause
-        video.play().catch(() => {
-          if (playToggle) playToggle.textContent = "Play";
-        });
+          video.addEventListener("volumechange", () => {
+            if (!muteToggle) return;
+            muteToggle.textContent = video.muted ? "Sound on" : "Mute";
+          });
+        }
       }
 
       if (skipLink) {
