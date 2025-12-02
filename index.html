@@ -8,7 +8,7 @@
 </head>
 <body>
   <!-- Background video (fixed) -->
-  <video id="film" class="bg-video" playsinline poster="assets/images/poster-frame.jpg" crossorigin="anonymous">
+  <video id="film" class="bg-video" autoplay muted playsinline preload="auto" poster="assets/images/poster-frame.jpg">
     <source src="https://github.com/m-crow-m/notalone/releases/download/v1.0/you-are-not-alone.mp4" type="video/mp4" />
     Your browser does not support video playback.
   </video>
@@ -101,21 +101,10 @@
         noiseToggle.setAttribute('aria-pressed', 'true');
       }
 
-      // Try to play with sound; if autoplay blocked, fall back to muted autoplay
-      function tryPlayWithSound() {
-        if (!video) return;
-        video.muted = false;
-        const p = video.play();
-        if (p && p.catch) {
-          p.catch(() => {
-            // Autoplay with sound blocked — fallback to muted autoplay until user interacts
-            video.muted = true;
-            video.play().catch(()=>{});
-          });
-        }
+      // Start playback muted to satisfy autoplay policies across browsers
+      if (video) {
+        video.play().catch(()=>{});
       }
-
-      tryPlayWithSound();
 
       // Noise toggle (landing page sticky)
       function toggleNoise(state) {
@@ -131,6 +120,13 @@
       // Open fullscreen player and show controls
       openPlayer.addEventListener('click', async () => {
         if (!video) return;
+        // This is a user gesture — attempt to unmute and resume playback with sound
+        try {
+          video.muted = false;
+          await video.play();
+        } catch (err) {
+          // If unmuting or play fails, continue anyway
+        }
         try {
           await video.requestFullscreen();
         } catch (err) {
