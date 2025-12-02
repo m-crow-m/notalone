@@ -183,6 +183,42 @@ body {
   outline: none;
 }
 
+/* Sticky portfolio link (bottom-right) */
+.portfolio-link {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1100;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #fff;
+  border-radius: 10px;
+  padding: 8px;
+  text-decoration: none;
+  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.portfolio-link svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+}
+
+.portfolio-link:hover,
+.portfolio-link:focus-visible {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  outline: none;
+  border-color: rgba(255,255,255,0.28);
+}
+
 @media (max-width: 640px) {
   .foreground .page {
     padding: 8vh 16px 80px;
