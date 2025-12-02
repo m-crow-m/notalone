@@ -426,7 +426,6 @@ h1 {
   height: 100vh;
   object-fit: cover;
   object-position: center center;
-  z-index: -1; /* ensure it is below all UI layers */
   pointer-events: none;
   -webkit-transform: translateZ(0);
 }
