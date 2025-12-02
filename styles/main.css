@@ -151,13 +151,13 @@ body {
   background: transparent;
   border: 1px solid rgba(255,255,255,0.15);
   color: #fff;
-  padding: 10px 16px;
+  padding: 10px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
   transition: all 200ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .top-controls .control-button:hover {
@@ -167,17 +167,18 @@ body {
 }
 
 .replay-button {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.2);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
-  padding: 12px 28px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  padding: 12px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 200ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
   backdrop-filter: blur(8px);
 }
 
