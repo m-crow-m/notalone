@@ -9,6 +9,7 @@
 <body>
   <!-- VIDEO GATE -->
   <section id="video-gate">
+    <div class="gate-ambient"></div>
     <div class="gate-inner">
       <div class="video-shell">
         <video
@@ -106,11 +107,27 @@
       const progressFill = document.getElementById("progress-fill");
 
       function openSite() {
-        if (!gate || !siteContent) return;
-        gate.classList.add("hidden");
-        siteContent.classList.remove("hidden");
+        if (gateClosed) return;
+        gateClosed = true;
+
+        if (video) {
+          video.pause();
+          video.classList.add("hidden");
+        }
+
+        if (siteContent) {
+          siteContent.classList.remove("hidden");
+        }
+
+        revealAfterFade();
         localStorage.setItem("videoWatched", "true");
         window.scrollTo({ top: 0, behavior: "instant" });
+      }
+
+      function updateProgress() {
+        if (!video || !progressFill || !video.duration) return;
+        const percent = (video.currentTime / video.duration) * 100;
+        progressFill.style.width = `${percent}%`;
       }
 
       // If viewer has already watched once, open the site directly
@@ -140,10 +157,12 @@
         }
       }
 
-      // Optional skip link
       if (skipLink) {
         skipLink.addEventListener("click", function (e) {
           e.preventDefault();
+          if (video) {
+            video.currentTime = video.duration || video.currentTime;
+          }
           openSite();
         });
       }
