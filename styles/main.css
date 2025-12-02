@@ -93,74 +93,90 @@ body {
 }
 
 .control-button {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 6px;
-  padding: 8px 12px;
-  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: all 200ms ease;
-  backdrop-filter: blur(8px);
+  transition: all 150ms ease;
+  backdrop-filter: blur(12px);
   flex-shrink: 0;
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .control-button:hover,
 .control-button:focus-visible {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
   outline: none;
+}
+
+.control-button:active {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(0);
 }
 
 .control-icon {
   display: inline-block;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .progress {
   position: relative;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.15);
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 2px;
   overflow: hidden;
   flex: 1;
   min-width: 60px;
   cursor: pointer;
+  transition: height 150ms ease;
+}
+
+.progress:hover {
+  height: 5px;
 }
 
 .progress span {
   display: block;
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, #fff, #ccc);
+  background: #fff;
   transition: width 120ms linear;
 }
 
 .skip-button {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-size: 0.85rem;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 200ms ease;
-  backdrop-filter: blur(8px);
+  transition: all 150ms ease;
+  backdrop-filter: blur(12px);
   flex-shrink: 0;
   margin-left: auto;
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .skip-button:hover,
 .skip-button:focus-visible {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
   outline: none;
+}
+
+.skip-button:active {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(0);
 }
 
 .gate-note {

@@ -152,9 +152,18 @@
         // First time viewer - show the video gate
         if (video) {
           // Try to autoplay
-          video.play().catch(err => {
-            console.log("Autoplay failed, user must click play button");
-          });
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                // Video started playing, hide the overlay button
+                hidePlayOverlay();
+              })
+              .catch(err => {
+                // Autoplay failed, keep the play button visible
+                console.log("Autoplay failed, play button visible for user interaction");
+              });
+          }
 
           // Hide overlay when video starts playing
           video.addEventListener("play", () => {
