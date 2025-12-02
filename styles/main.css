@@ -4,6 +4,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   background: #000;
   color: #fff;
+  overflow-x: hidden;
 }
 
 .hidden {
@@ -12,16 +13,18 @@ body {
 
 /* Gate section fills the viewport */
 #video-gate {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 100vw;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity 600ms ease-out;
+  z-index: 100;
 }
 
 #video-gate.hidden {
