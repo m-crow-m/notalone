@@ -10,26 +10,37 @@
   <!-- VIDEO GATE -->
   <section id="video-gate">
     <div class="gate-inner">
-      <video
-        id="film"
-        controls
-        autoplay
-        muted
-        playsinline
-        poster="assets/images/poster-frame.jpg"
-      >
-        <source src="https://github.com/m-crow-m/notalone/releases/download/v1.0/you-are-not-alone.mp4" type="video/mp4" />
-        Your browser does not support video playback.
-      </video>
+      <div class="video-shell">
+        <video
+          id="film"
+          controls
+          autoplay
+          muted
+          playsinline
+          poster="assets/images/poster-frame.jpg"
+        >
+          <source src="https://github.com/m-crow-m/notalone/releases/download/v1.0/you-are-not-alone.mp4" type="video/mp4" />
+          Your browser does not support video playback.
+        </video>
+
+        <div class="control-bar" aria-label="Custom video controls">
+          <button type="button" id="play-toggle" class="control-button">Pause</button>
+          <button type="button" id="mute-toggle" class="control-button">Sound on</button>
+          <button type="button" id="restart" class="control-button">Restart</button>
+          <div class="progress" aria-hidden="true">
+            <span id="progress-fill"></span>
+          </div>
+        </div>
+      </div>
 
       <p class="gate-note">
         Best experienced in a dark room with headphones.
       </p>
 
       <!-- Optional escape hatch if you want it -->
-      <a href="#" id="skip-link" class="skip-link">
+      <button type="button" id="skip-link" class="skip-link">
         Skip to site
-      </a>
+      </button>
     </div>
   </section>
 
@@ -89,6 +100,10 @@
       const gate = document.getElementById("video-gate");
       const siteContent = document.getElementById("site-content");
       const skipLink = document.getElementById("skip-link");
+      const playToggle = document.getElementById("play-toggle");
+      const muteToggle = document.getElementById("mute-toggle");
+      const restartButton = document.getElementById("restart");
+      const progressFill = document.getElementById("progress-fill");
 
       function openSite() {
         if (!gate || !siteContent) return;
@@ -104,6 +119,24 @@
       } else {
         if (video) {
           video.addEventListener("ended", openSite);
+          video.addEventListener("timeupdate", () => {
+            if (!progressFill || !video.duration) return;
+            const percent = (video.currentTime / video.duration) * 100;
+            progressFill.style.width = `${percent}%`;
+          });
+
+          video.addEventListener("play", () => {
+            if (playToggle) playToggle.textContent = "Pause";
+          });
+
+          video.addEventListener("pause", () => {
+            if (playToggle) playToggle.textContent = "Play";
+          });
+
+          video.addEventListener("volumechange", () => {
+            if (!muteToggle) return;
+            muteToggle.textContent = video.muted ? "Sound on" : "Mute";
+          });
         }
       }
 
@@ -112,6 +145,30 @@
         skipLink.addEventListener("click", function (e) {
           e.preventDefault();
           openSite();
+        });
+      }
+
+      if (playToggle && video) {
+        playToggle.addEventListener("click", () => {
+          if (video.paused) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+      }
+
+      if (muteToggle && video) {
+        muteToggle.addEventListener("click", () => {
+          video.muted = !video.muted;
+          muteToggle.textContent = video.muted ? "Sound on" : "Mute";
+        });
+      }
+
+      if (restartButton && video) {
+        restartButton.addEventListener("click", () => {
+          video.currentTime = 0;
+          video.play();
         });
       }
     });
