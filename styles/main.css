@@ -452,7 +452,7 @@ h1 {
   position: static;
   z-index: 100;
   color: #fff;
-  background: transparent;
+  background: #ff00ff; /* BRIGHT MAGENTA DEBUG - should be very visible */
   width: 100%;
   min-height: 200vh;
 }
