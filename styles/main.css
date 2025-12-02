@@ -427,7 +427,7 @@ h1 {
   height: 100vh;
   object-fit: cover;
   object-position: center center;
-  z-index: 0;
+  z-index: -1; /* ensure it is below all UI layers */
   pointer-events: none;
   -webkit-transform: translateZ(0);
 }
@@ -451,7 +451,7 @@ h1 {
 /* Foreground content sits above the noise and video */
 .foreground {
   position: relative;
-  z-index: 10;
+  z-index: 100;
   color: #fff;
   background: transparent;
 }
@@ -459,7 +459,7 @@ h1 {
 .foreground .page {
   max-width: 900px;
   margin: 0 auto;
-  padding: 60vh 24px 120px; /* start content lower so text appears to rise up from beneath */
+  padding: 40vh 24px 120px; /* reduce for debugging so text appears sooner */
   background: transparent;
   min-height: 100vh;
 }
@@ -475,12 +475,12 @@ h1 {
   position: fixed;
   right: 18px;
   bottom: 18px;
-  z-index: 30;
+  z-index: 1000;
   width: 48px;
   height: 48px;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.75);
   color: #fff;
   display: flex;
   align-items: center;
@@ -498,10 +498,10 @@ h1 {
   position: fixed;
   top: 18px;
   right: 18px;
-  z-index: 30;
+  z-index: 1000;
   padding: 8px 12px;
   border-radius: 6px;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.75);
   color: #fff;
   border: 1px solid rgba(255,255,255,0.06);
   cursor: pointer;
