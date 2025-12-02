@@ -16,6 +16,11 @@ body {
   height: 100%;
 }
 
+/* DEBUG: Show all major containers */
+body > * {
+  outline: 2px solid cyan !important;
+}
+
 .hidden {
   display: none;
 }
@@ -454,6 +459,7 @@ h1 {
   z-index: 100;
   color: #fff;
   background: transparent;
+  outline: 3px solid yellow !important; /* DEBUG */
 }
 
 .foreground .page {
@@ -462,6 +468,7 @@ h1 {
   padding: 40vh 24px 120px; /* reduce for debugging so text appears sooner */
   background: transparent;
   min-height: 100vh;
+  outline: 3px solid lime !important; /* DEBUG */
 }
 
 .hero-text p {
