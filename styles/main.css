@@ -13,12 +13,6 @@ body {
   color: #fff;
   overflow-x: hidden;
   width: 100%;
-  /* removed height: 100% to allow body to expand with content */
-}
-
-/* DEBUG: Show all major containers */
-body > * {
-  outline: 2px solid cyan !important;
 }
 
 .hidden {
@@ -455,13 +449,13 @@ h1 {
 
 /* Foreground content sits above the noise and video */
 .foreground {
-  position: relative;
+  display: block;
+  position: static;
   z-index: 100;
   color: #fff;
-  background: rgba(0, 0, 0, 0.3); /* DEBUG: semi-transparent to see if renders */
+  background: transparent;
   width: 100%;
   min-height: 200vh;
-  outline: 3px solid yellow !important; /* DEBUG */
 }
 
 .foreground .page {
@@ -470,7 +464,6 @@ h1 {
   padding: 8vh 24px 120px;
   background: transparent;
   min-height: auto;
-  outline: 3px solid lime !important; /* DEBUG */
 }
 
 .hero-text p {
