@@ -109,12 +109,14 @@ body {
   font-weight: 900;
   margin: 0 0 20px;
   opacity: 0.9;
+  max-width: 52ch;
 }
 
 .foreground .section p {
   line-height: 1.6;
   font-size: 0.9rem;
   opacity: 0.8;
+  max-width: 80ch;
 }
 
 .credits {
