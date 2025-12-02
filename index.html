@@ -108,6 +108,7 @@
     document.addEventListener("DOMContentLoaded", function () {
       const video = document.getElementById("film");
       const gate = document.getElementById("video-gate");
+      const videoOverlay = document.querySelector(".video-overlay");
       const siteContent = document.getElementById("site-content");
       const skipLink = document.getElementById("skip-link");
       const playToggle = document.getElementById("play-toggle");
@@ -116,10 +117,26 @@
       const playOverlay = document.getElementById("play-overlay");
       
       let gateClosed = false;
+      let controlsHideTimer = null;
 
       function hidePlayOverlay() {
         if (playOverlay) {
           playOverlay.classList.add("hidden");
+        }
+      }
+
+      function showControls() {
+        if (videoOverlay) {
+          videoOverlay.classList.remove("hidden-controls");
+        }
+        clearTimeout(controlsHideTimer);
+        
+        if (video && !video.paused) {
+          controlsHideTimer = setTimeout(() => {
+            if (videoOverlay && !video.paused) {
+              videoOverlay.classList.add("hidden-controls");
+            }
+          }, 3000);
         }
       }
 
@@ -169,6 +186,7 @@
           video.addEventListener("play", () => {
             hidePlayOverlay();
             if (playToggle) playToggle.innerHTML = '<span class="control-icon">⏸</span>';
+            showControls();
           });
 
           video.addEventListener("ended", openSite);
@@ -181,12 +199,22 @@
 
           video.addEventListener("pause", () => {
             if (playToggle) playToggle.innerHTML = '<span class="control-icon">▶</span>';
+            if (videoOverlay) {
+              videoOverlay.classList.remove("hidden-controls");
+              clearTimeout(controlsHideTimer);
+            }
           });
 
           video.addEventListener("volumechange", () => {
             if (!muteToggle) return;
             muteToggle.innerHTML = video.muted ? '<span class="control-icon">🔇</span>' : '<span class="control-icon">🔊</span>';
           });
+
+          // Show controls on mouse move
+          if (videoOverlay) {
+            videoOverlay.addEventListener("mouseenter", showControls);
+            gate.addEventListener("mousemove", showControls);
+          }
         }
       }
 

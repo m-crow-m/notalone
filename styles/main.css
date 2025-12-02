@@ -80,9 +80,17 @@ body {
   left: 0;
   right: 0;
   z-index: 10;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.95) 50%, #000 100%);
-  padding: 40px 24px 24px;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.6) 100%);
+  padding: 60px 24px 24px;
   backdrop-filter: blur(8px);
+  opacity: 1;
+  transition: opacity 300ms ease;
+  pointer-events: auto;
+}
+
+.video-overlay.hidden-controls {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .video-controls {
@@ -93,35 +101,64 @@ body {
 }
 
 .control-button {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
   color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: all 150ms ease;
-  backdrop-filter: blur(12px);
+  transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   flex-shrink: 0;
-  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
 }
 
-.control-button:hover,
-.control-button:focus-visible {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
-  outline: none;
+/* Noise texture effect */
+.control-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.control-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1),
+              inset 0 0 20px rgba(255, 255, 255, 0.05);
+  transform: translateY(-3px) scale(1.05);
+  backdrop-filter: blur(25px);
 }
 
 .control-button:active {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(0);
+  transform: translateY(-1px) scale(0.98);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .control-icon {
   display: inline-block;
   font-size: 1.2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .progress {
@@ -149,34 +186,63 @@ body {
 }
 
 .skip-button {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
   color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 18px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 150ms ease;
-  backdrop-filter: blur(12px);
+  transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  backdrop-filter: blur(20px);
   flex-shrink: 0;
   margin-left: auto;
-  -webkit-backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Noise texture effect */
+.skip-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .skip-button:hover,
 .skip-button:focus-visible {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1),
+              inset 0 0 20px rgba(255, 255, 255, 0.05);
+  transform: translateY(-3px) scale(1.05);
+  backdrop-filter: blur(25px);
   outline: none;
 }
 
 .skip-button:active {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(0);
+  transform: translateY(-1px) scale(0.98);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .gate-note {
