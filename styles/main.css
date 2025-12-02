@@ -100,23 +100,23 @@ body {
   padding: 0;
   text-align: left;
   max-width: 100%;
-  transition: transform 450ms cubic-bezier(.2,.9,.2,1), opacity 450ms ease;
-  transform-origin: center center;
+  transition: transform 600ms cubic-bezier(.19,1,.22,1), opacity 600ms ease;
+  transform-origin: left center;
   will-change: transform, opacity;
 }
 
 .foreground .section.is-active {
-  transform: scale(1.08);
+  transform: scale(1.15);
   opacity: 1;
 }
 
 .foreground .section:not(.is-active) {
-  opacity: 0.75;
+  opacity: 0.7;
 }
 
 @media (max-width: 640px) {
   .foreground .section.is-active {
-    transform: scale(1.04);
+    transform: scale(1.08);
   }
 }
 
