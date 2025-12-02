@@ -29,16 +29,33 @@
     <div class="video-overlay">
       <div class="video-controls">
         <button type="button" id="play-toggle" class="control-button" aria-label="Play/Pause">
-          <span class="control-icon">▶</span>
+          <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
         </button>
         <button type="button" id="mute-toggle" class="control-button" aria-label="Mute/Unmute">
-          <span class="control-icon">🔊</span>
+          <svg class="icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a6.5 6.5 0 0 1 0 9.07"></path>
+          </svg>
+          <svg class="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
         </button>
         <div class="progress" aria-hidden="true">
           <span id="progress-fill"></span>
         </div>
         <button type="button" id="skip-link" class="skip-button" aria-label="Skip to site">
-          SKIP
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+          <span>SKIP</span>
         </button>
       </div>
 
@@ -185,7 +202,10 @@
           // Hide overlay when video starts playing
           video.addEventListener("play", () => {
             hidePlayOverlay();
-            if (playToggle) playToggle.innerHTML = '<span class="control-icon">⏸</span>';
+            if (playToggle) {
+              playToggle.querySelector('.icon-play').style.display = 'none';
+              playToggle.querySelector('.icon-pause').style.display = 'block';
+            }
             showControls();
           });
 
@@ -198,7 +218,10 @@
           });
 
           video.addEventListener("pause", () => {
-            if (playToggle) playToggle.innerHTML = '<span class="control-icon">▶</span>';
+            if (playToggle) {
+              playToggle.querySelector('.icon-play').style.display = 'block';
+              playToggle.querySelector('.icon-pause').style.display = 'none';
+            }
             if (videoOverlay) {
               videoOverlay.classList.remove("hidden-controls");
               clearTimeout(controlsHideTimer);
@@ -207,7 +230,8 @@
 
           video.addEventListener("volumechange", () => {
             if (!muteToggle) return;
-            muteToggle.innerHTML = video.muted ? '<span class="control-icon">🔇</span>' : '<span class="control-icon">🔊</span>';
+            muteToggle.querySelector('.icon-sound').style.display = video.muted ? 'none' : 'block';
+            muteToggle.querySelector('.icon-mute').style.display = video.muted ? 'block' : 'none';
           });
 
           // Show controls on mouse move
