@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>You Are Not Alone – Film</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="stylesheet" href="styles/main.css?v=2025" />
+  <link rel="stylesheet" href="styles/main.css?v=2025b" />
 </head>
 <body>
   <!-- Noise layer (toggleable) -->
@@ -61,9 +61,7 @@
   </div>
 
   <!-- Sticky controls on the landing page -->
-  <button id="noise-toggle" class="sticky-noise" aria-pressed="false" aria-label="Toggle noise overlay">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-  </button>
+  <button id="open-player" class="open-player" aria-label="Open player">Open Player</button>
 
   <!-- Fullscreen player controls (appear when player is active/fullscreen) -->
   <div id="player-controls" class="player-controls" hidden>
@@ -77,7 +75,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       const video = document.getElementById('film');
       const noise = document.getElementById('noise-overlay');
-      const noiseToggle = document.getElementById('noise-toggle');
+      const openPlayer = document.getElementById('open-player');
       const playerControls = document.getElementById('player-controls');
       const playerPlay = document.getElementById('player-play');
       const playerNoise = document.getElementById('player-noise');
@@ -87,7 +85,6 @@
       const savedNoise = localStorage.getItem('noiseVisible') === 'true';
       if (savedNoise) {
         noise.classList.add('visible');
-        noiseToggle.setAttribute('aria-pressed', 'true');
       }
 
       // Start playback muted to satisfy autoplay policies across browsers
@@ -95,16 +92,34 @@
         video.play().catch(()=>{});
       }
 
-      // Noise toggle (landing page sticky)
+      // Noise toggle function
       function toggleNoise(state) {
         const on = typeof state === 'boolean' ? state : !noise.classList.contains('visible');
         noise.classList.toggle('visible', on);
-        noiseToggle.setAttribute('aria-pressed', String(on));
         noise.setAttribute('aria-hidden', String(!on));
         localStorage.setItem('noiseVisible', String(on));
       }
 
-      noiseToggle.addEventListener('click', () => toggleNoise());
+      // Open fullscreen player and show controls
+      openPlayer.addEventListener('click', async () => {
+        if (!video) return;
+        // This is a user gesture — attempt to unmute and resume playback with sound
+        try {
+          video.muted = false;
+          await video.play();
+        } catch (err) {
+          // If unmuting or play fails, continue anyway
+        }
+        try {
+          await video.requestFullscreen();
+        } catch (err) {
+          // ignore fullscreen errors
+        }
+        playerControls.hidden = false;
+        openPlayer.setAttribute('aria-expanded', 'true');
+        playerPlay.textContent = video.paused ? 'Play' : 'Pause';
+        playerPlay.focus();
+      });
 
       // Play/pause in fullscreen controls
       playerPlay.addEventListener('click', () => {
@@ -144,6 +159,7 @@
       document.addEventListener('fullscreenchange', () => {
         if (!document.fullscreenElement) {
           playerControls.hidden = true;
+          openPlayer.setAttribute('aria-expanded', 'false');
         }
       });
 
@@ -153,6 +169,7 @@
           if (document.fullscreenElement) {
             document.exitFullscreen();
             playerControls.hidden = true;
+            openPlayer.setAttribute('aria-expanded', 'false');
           }
         }
       });
