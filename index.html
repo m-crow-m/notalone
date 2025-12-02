@@ -3,106 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <title>You Are Not Alone – Film</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <link rel="stylesheet" href="styles/main.css?v=2024" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="stylesheet" href="styles/main.css?v=2025" />
 </head>
 <body>
-  <!-- VIDEO GATE -->
-  <section id="video-gate">
-    <video
-      id="film"
-      autoplay
-      muted
-      playsinline
-      poster="assets/images/poster-frame.jpg"
-    >
-      <source src="https://github.com/m-crow-m/notalone/releases/download/v1.0/you-are-not-alone.mp4" type="video/mp4" />
-      Your browser does not support video playback.
-    </video>
+  <!-- Background video (fixed) -->
+  <video id="film" class="bg-video" playsinline poster="assets/images/poster-frame.jpg" crossorigin="anonymous">
+    <source src="https://github.com/m-crow-m/notalone/releases/download/v1.0/you-are-not-alone.mp4" type="video/mp4" />
+    Your browser does not support video playback.
+  </video>
 
-    <!-- Large play button overlay for first-time users -->
-    <button type="button" id="play-overlay" class="play-overlay" aria-label="Play video">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-      </svg>
-    </button>
+  <!-- Noise layer (toggleable) -->
+  <div id="noise-overlay" class="noise-overlay" aria-hidden="true"></div>
 
-    <!-- Video overlay controls -->
-    <div class="video-overlay">
-      <div class="video-controls">
-        <button type="button" id="play-toggle" class="control-button" aria-label="Play/Pause">
-          <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-          </svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
-            <rect x="6" y="4" width="4" height="16"></rect>
-            <rect x="14" y="4" width="4" height="16"></rect>
-          </svg>
-        </button>
-        <button type="button" id="mute-toggle" class="control-button" aria-label="Mute/Unmute">
-          <svg class="icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M15.54 8.46a6.5 6.5 0 0 1 0 9.07"></path>
-          </svg>
-          <svg class="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="23" y1="9" x2="17" y2="15"></line>
-            <line x1="17" y1="9" x2="23" y2="15"></line>
-          </svg>
-        </button>
-        <div class="progress" aria-hidden="true">
-          <span id="progress-fill"></span>
-        </div>
-        <button type="button" id="skip-link" class="skip-button" aria-label="Skip to site">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-          <span>SKIP</span>
-        </button>
-      </div>
-
-      <p class="gate-note">
-        Best experienced with headphones
-      </p>
-    </div>
-  </section>
-
-  <!-- REST OF SITE (HIDDEN UNTIL VIDEO ENDS) -->
-  <div id="site-content" class="hidden">
+  <!-- Foreground content that scrolls over the video -->
+  <main class="foreground">
     <div class="page">
       <header>
         <h1>You Are Not Alone</h1>
-        <div class="meta">
-          2025 · Short film · AI and design
-        </div>
+        <div class="meta">2025 · Short film · AI and design</div>
       </header>
+
+      <section class="hero-text">
+        <p>
+          A short experimental film exploring companionship, technology, and the edges of perception. Scroll to reveal more.
+        </p>
+      </section>
 
       <section class="section" id="context">
         <h2>Project context</h2>
-        <p>
-          [Your text here about the assignment and what this piece is.]
-        </p>
+        <p>[Your text here about the assignment and what this piece is.]</p>
       </section>
 
       <section class="section" id="statement">
         <h2>Artist statement</h2>
-        <p>
-          [Your artist statement lives here.]
-        </p>
+        <p>[Your artist statement lives here.]</p>
       </section>
 
       <section class="section" id="process">
         <h2>Process and AI</h2>
-        <p>
-          [Notes on Pika, Suno, Premiere, what you rejected, etc.]
-        </p>
+        <p>[Notes on Pika, Suno, Premiere, what you rejected, etc.]</p>
       </section>
 
       <section class="section" id="research">
         <h2>Research context</h2>
-        <p>
-          [Short paragraph about your research question and AI and emotion.]
-        </p>
+        <p>[Short paragraph about your research question and AI and emotion.]</p>
       </section>
 
       <section class="section" id="credits">
@@ -116,191 +61,148 @@
       </section>
 
       <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.15);">
-        <button type="button" id="replay-btn" class="replay-button">
-          REPLAY VIDEO
-        </button>
+        <button type="button" id="replay-btn" class="replay-button">REPLAY VIDEO</button>
       </div>
+    </div>
+  </main>
+
+  <!-- Sticky controls on the landing page -->
+  <button id="noise-toggle" class="sticky-noise" aria-pressed="false" aria-label="Toggle noise overlay">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+
+  <button id="open-player" class="open-player" aria-label="Open player">Open Player</button>
+
+  <!-- Fullscreen player controls (appear when player is active/fullscreen) -->
+  <div id="player-controls" class="player-controls" hidden>
+    <div class="player-row">
+      <button id="player-play" class="control-button">Play</button>
+      <button id="player-noise" class="control-button">Noise</button>
+      <button id="player-close" class="control-button">×</button>
     </div>
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const video = document.getElementById("film");
-      const gate = document.getElementById("video-gate");
-      const videoOverlay = document.querySelector(".video-overlay");
-      const siteContent = document.getElementById("site-content");
-      const skipLink = document.getElementById("skip-link");
-      const playToggle = document.getElementById("play-toggle");
-      const muteToggle = document.getElementById("mute-toggle");
-      const progressFill = document.getElementById("progress-fill");
-      const playOverlay = document.getElementById("play-overlay");
-      
-      let gateClosed = false;
-      let controlsHideTimer = null;
+    document.addEventListener('DOMContentLoaded', () => {
+      const video = document.getElementById('film');
+      const noise = document.getElementById('noise-overlay');
+      const noiseToggle = document.getElementById('noise-toggle');
+      const openPlayer = document.getElementById('open-player');
+      const playerControls = document.getElementById('player-controls');
+      const playerPlay = document.getElementById('player-play');
+      const playerNoise = document.getElementById('player-noise');
+      const playerClose = document.getElementById('player-close');
+      const replayBtn = document.getElementById('replay-btn');
 
-      function hidePlayOverlay() {
-        if (playOverlay) {
-          playOverlay.classList.add("hidden");
+      // Load noise preference
+      const savedNoise = localStorage.getItem('noiseVisible') === 'true';
+      if (savedNoise) {
+        noise.classList.add('visible');
+        noiseToggle.setAttribute('aria-pressed', 'true');
+      }
+
+      // Try to play with sound; if autoplay blocked, fall back to muted autoplay
+      function tryPlayWithSound() {
+        if (!video) return;
+        video.muted = false;
+        const p = video.play();
+        if (p && p.catch) {
+          p.catch(() => {
+            // Autoplay with sound blocked — fallback to muted autoplay until user interacts
+            video.muted = true;
+            video.play().catch(()=>{});
+          });
         }
       }
 
-      function showPlayOverlay() {
-        if (playOverlay) {
-          playOverlay.classList.remove("hidden");
-        }
+      tryPlayWithSound();
+
+      // Noise toggle (landing page sticky)
+      function toggleNoise(state) {
+        const on = typeof state === 'boolean' ? state : !noise.classList.contains('visible');
+        noise.classList.toggle('visible', on);
+        noiseToggle.setAttribute('aria-pressed', String(on));
+        noise.setAttribute('aria-hidden', String(!on));
+        localStorage.setItem('noiseVisible', String(on));
       }
 
-      function showControls() {
-        if (videoOverlay) {
-          videoOverlay.classList.remove("hidden-controls");
+      noiseToggle.addEventListener('click', () => toggleNoise());
+
+      // Open fullscreen player and show controls
+      openPlayer.addEventListener('click', async () => {
+        if (!video) return;
+        try {
+          await video.requestFullscreen();
+        } catch (err) {
+          // ignore fullscreen errors
         }
-        clearTimeout(controlsHideTimer);
-        
-        if (video && !video.paused) {
-          controlsHideTimer = setTimeout(() => {
-            if (videoOverlay && !video.paused) {
-              videoOverlay.classList.add("hidden-controls");
-            }
-          }, 3000);
-        }
-      }
+        playerControls.hidden = false;
+        openPlayer.setAttribute('aria-expanded', 'true');
+        playerPlay.textContent = video.paused ? 'Play' : 'Pause';
+        playerPlay.focus();
+      });
 
-      function openSite() {
-        if (gateClosed) return;
-        gateClosed = true;
+      // Play/pause in fullscreen controls
+      playerPlay.addEventListener('click', () => {
+        if (!video) return;
+        if (video.paused) video.play(); else video.pause();
+        playerPlay.textContent = video.paused ? 'Play' : 'Pause';
+      });
 
-        if (video) {
-          video.pause();
-          gate.classList.add("hidden");
-        }
-
-        if (siteContent) {
-          siteContent.classList.remove("hidden");
-        }
-
-        localStorage.setItem("videoWatched", "true");
-        window.scrollTo({ top: 0, behavior: "instant" });
-      }
-
-      // Always show the video gate on page load
-      gate.classList.remove("hidden");
-      siteContent.classList.add("hidden");
-      gateClosed = false;
-
-      // Show play overlay button initially
-      showPlayOverlay();
-
-      // Set up video event listeners
-      if (video) {
-        // Try to autoplay
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              // Video started playing, hide the overlay button
-              hidePlayOverlay();
-              showControls();
-            })
-            .catch(err => {
-              // Autoplay failed, keep the play button visible
-              console.log("Autoplay not allowed, user can click play button");
-              showPlayOverlay();
-            });
-        }
-
-        // Hide overlay when video starts playing
-        video.addEventListener("play", () => {
-          hidePlayOverlay();
-          if (playToggle) {
-            playToggle.querySelector('.icon-play').style.display = 'none';
-            playToggle.querySelector('.icon-pause').style.display = 'block';
-          }
-          showControls();
-        });
-
-        video.addEventListener("ended", openSite);
-        
-        video.addEventListener("timeupdate", () => {
-          if (!progressFill || !video.duration) return;
-          const percent = (video.currentTime / video.duration) * 100;
-          progressFill.style.width = `${percent}%`;
-        });
-
-        video.addEventListener("pause", () => {
-          if (playToggle) {
-            playToggle.querySelector('.icon-play').style.display = 'block';
-            playToggle.querySelector('.icon-pause').style.display = 'none';
-          }
-          if (videoOverlay) {
-            videoOverlay.classList.remove("hidden-controls");
-            clearTimeout(controlsHideTimer);
-          }
-        });
-
-        video.addEventListener("volumechange", () => {
-          if (!muteToggle) return;
-          muteToggle.querySelector('.icon-sound').style.display = video.muted ? 'none' : 'block';
-          muteToggle.querySelector('.icon-mute').style.display = video.muted ? 'block' : 'none';
-        });
-
-        // Show controls on mouse move
-        if (videoOverlay) {
-          videoOverlay.addEventListener("mouseenter", showControls);
-          gate.addEventListener("mousemove", showControls);
-        }
-      }
-
-      // Play overlay button - always available
-      if (playOverlay && video) {
-        playOverlay.addEventListener("click", () => {
-          video.play();
-        });
-      }
-
-      if (skipLink) {
-        skipLink.addEventListener("click", function (e) {
+      // Allow spacebar to toggle play when controls focused
+      playerPlay.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
           e.preventDefault();
-          if (video) {
-            video.currentTime = video.duration || video.currentTime;
-          }
-          openSite();
-        });
-      }
+          playerPlay.click();
+        }
+      });
 
-      if (playToggle && video) {
-        playToggle.addEventListener("click", () => {
-          if (video.paused) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
-      }
+      // Player noise toggle mirrors the landing noise button
+      playerNoise.addEventListener('click', () => {
+        toggleNoise();
+        playerNoise.focus();
+      });
 
-      if (muteToggle && video) {
-        muteToggle.addEventListener("click", () => {
-          video.muted = !video.muted;
-          const soundIcon = muteToggle.querySelector('.icon-sound');
-          const muteIcon = muteToggle.querySelector('.icon-mute');
-          if (soundIcon && muteIcon) {
-            soundIcon.style.display = video.muted ? 'none' : 'block';
-            muteIcon.style.display = video.muted ? 'block' : 'none';
-          }
-        });
-      }
+      // Close player: exit fullscreen and hide controls
+      playerClose.addEventListener('click', async () => {
+        if (document.fullscreenElement) await document.exitFullscreen();
+        playerControls.hidden = true;
+        openPlayer.setAttribute('aria-expanded', 'false');
+        openPlayer.focus();
+      });
 
-      // Replay button functionality
-      const replayBtn = document.getElementById("replay-btn");
+      // Update play button text on play/pause
+      video.addEventListener('play', () => { if (playerControls) playerPlay.textContent = 'Pause'; });
+      video.addEventListener('pause', () => { if (playerControls) playerPlay.textContent = 'Play'; });
+
+      // Replay button restarts video and scrolls to top
       if (replayBtn) {
-        replayBtn.addEventListener("click", () => {
-          gateClosed = false;
-          siteContent.classList.add("hidden");
-          gate.classList.remove("hidden");
+        replayBtn.addEventListener('click', () => {
           video.currentTime = 0;
           video.play();
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
+
+      // Hide controls when leaving fullscreen
+      document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) {
+          playerControls.hidden = true;
+          openPlayer.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Escape key handling: if fullscreen, exit and hide controls; otherwise do nothing
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+            playerControls.hidden = true;
+            openPlayer.setAttribute('aria-expanded', 'false');
+            openPlayer.focus();
+          }
+        }
+      });
     });
   </script>
 </body>
