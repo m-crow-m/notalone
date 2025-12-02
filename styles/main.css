@@ -1,437 +1,35 @@
-html {
+/* Clean minimal CSS for background video + foreground content layout */
+
+html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100%;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   background: #000;
   color: #fff;
   overflow-x: hidden;
-  width: 100%;
 }
 
 .hidden {
   display: none;
 }
 
-/* Gate section fills the viewport */
-#video-gate {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background: #000;
-  display: block;
-  transition: opacity 600ms ease-out;
-  z-index: 100;
-}
-
-#video-gate.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Make the video cover the entire viewport reliably across devices */
-#film {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: block;
-  background: #000;
-  object-fit: cover;
-  object-position: center center;
-}
-
-/* respect display cutouts / safe areas */
-:root {
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-}
-
-/* Large play button overlay */
-.play-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 20;
-  width: clamp(64px, 18vw, 120px);
-  height: clamp(64px, 18vw, 120px);
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  cursor: pointer;
-  transition: all 300ms ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.play-overlay:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-}
-
-.play-overlay-icon {
-  color: #fff;
-  font-size: 3rem;
-  margin-left: 8px;
-}
-
-.play-overlay svg {
-  width: 60px;
-  height: 60px;
-  color: #fff;
-}
-
-.play-overlay.hidden {
-  display: none;
-}
-
-/* Video overlay controls */
-.video-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.6) 100%);
-  padding: calc(40px + var(--safe-bottom)) 16px calc(16px + var(--safe-bottom));
-  backdrop-filter: blur(8px);
-  opacity: 1;
-  transition: opacity 300ms ease;
-  pointer-events: auto;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.video-overlay.hidden-controls {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.video-controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.control-button {
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
-.control-button {
-}
-
-.control-button svg {
-  width: 20px;
-  height: 20px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* Noise texture effect */
-.control-button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.02),
-      rgba(255, 255, 255, 0.02) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.control-button:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1),
-              inset 0 0 20px rgba(255, 255, 255, 0.05);
-  transform: translateY(-3px) scale(1.08);
-  backdrop-filter: blur(25px);
-}
-
-.control-button:active {
-  transform: translateY(-1px) scale(0.95);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.progress {
-  position: relative;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-  flex: 1;
-  min-width: 60px;
-  cursor: pointer;
-  transition: height 150ms ease;
-}
-
-.progress:hover {
-  height: 5px;
-}
-
-.progress span {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: #fff;
-  transition: width 120ms linear;
-}
-
-.skip-button {
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 12px 20px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
-  backdrop-filter: blur(20px);
-  flex-shrink: 0;
-  margin-left: auto;
-  -webkit-backdrop-filter: blur(20px);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.skip-button svg {
-  width: 16px;
-  height: 16px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  flex-shrink: 0;
-}
-
-/* Noise texture effect */
-.skip-button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.02),
-      rgba(255, 255, 255, 0.02) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.skip-button:hover,
-.skip-button:focus-visible {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1),
-              inset 0 0 20px rgba(255, 255, 255, 0.05);
-  transform: translateY(-3px) scale(1.05);
-  backdrop-filter: blur(25px);
-  outline: none;
-}
-
-.skip-button:active {
-  transform: translateY(-1px) scale(0.95);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.skip-button span {
-  position: relative;
-  z-index: 1;
-}
-
-.gate-note {
-  margin: 0;
-  font-size: 0.85rem;
-  letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* Main site layout once unlocked */
-.page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 60px 24px;
-  background: #000;
-  min-height: 100vh;
-}
-
-header {
-  margin-bottom: 50px;
-  border-bottom: 2px solid #fff;
-  padding-bottom: 30px;
-}
-
-h1 {
-  font-size: 3rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin: 0 0 12px;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.meta {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  opacity: 0.65;
-  font-weight: 500;
-}
-
-.section {
-  margin: 50px 0;
-  padding: 30px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.section h2 {
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 700;
-  margin: 0 0 16px;
-  opacity: 0.9;
-}
-
-.section p {
-  line-height: 1.7;
-  font-size: 1rem;
-  opacity: 0.8;
-}
-
-.credits {
-  font-size: 0.9rem;
-  opacity: 0.75;
-  line-height: 1.8;
-}
-
-.replay-button {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
-  padding: 12px 28px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 200ms ease;
-  backdrop-filter: blur(8px);
-}
-
-.replay-button:hover,
-.replay-button:focus-visible {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  outline: none;
-}
-
-/* --- Responsive tweaks for small screens --- */
-@media (max-width: 640px) {
-  .play-overlay svg {
-    width: 48%;
-    height: 48%;
-  }
-
-  .video-overlay {
-    padding: calc(20px + var(--safe-bottom)) 12px calc(12px + var(--safe-bottom));
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.25) 40%, rgba(0, 0, 0, 0.6) 100%);
-  }
-
-  .control-button {
-    width: 40px;
-    height: 40px;
-  }
-
-  .progress {
-    min-width: 40px;
-  }
-
-  .skip-button {
-    padding: 8px 12px;
-    font-size: 0.65rem;
-  }
-
-  .video-controls {
-    gap: 8px;
-  }
-
-  .page {
-    padding: 40px 16px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-}
-
-@media (orientation: landscape) and (max-height: 500px) {
-  /* Reduce overlay footprint on short landscape viewports */
-  .video-overlay {
-    padding: calc(12px + var(--safe-bottom)) 12px calc(12px + var(--safe-bottom));
-  }
-}
-
-/* ----------------- Background video + foreground layout ----------------- */
-
-/* make the fixed bg video sit behind everything */
+/* Background video (absolutely positioned, will scroll off-screen naturally) */
 .bg-video {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   object-fit: cover;
   object-position: center center;
   pointer-events: none;
-  -webkit-transform: translateZ(0);
 }
 
-/* noise overlay sits above the video but under the content */
+/* Noise overlay */
 .noise-overlay {
   position: fixed;
   inset: 0;
@@ -447,17 +45,13 @@ h1 {
   opacity: 1;
 }
 
-/* Foreground content sits above the noise and video */
+/* Foreground content - simple block element that scrolls normally */
 .foreground {
-  display: block;
-  position: static;
-  z-index: 100;
-  color: #fff;
-  background: #ff00ff; /* BRIGHT MAGENTA DEBUG - should be very visible */
+  position: relative;
+  z-index: 10;
   width: 100%;
-  min-height: 200vh;
-  will-change: transform;
-  -webkit-transform: translateZ(0);
+  background: #ff00ff; /* DEBUG: bright magenta */
+  color: #fff;
 }
 
 .foreground .page {
@@ -465,7 +59,29 @@ h1 {
   margin: 0 auto;
   padding: 8vh 24px 120px;
   background: transparent;
-  min-height: auto;
+}
+
+.foreground header {
+  margin-bottom: 50px;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 30px;
+}
+
+.foreground h1 {
+  font-size: 3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.foreground .meta {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.65;
+  font-weight: 500;
 }
 
 .hero-text p {
@@ -474,7 +90,34 @@ h1 {
   line-height: 1.4;
 }
 
-/* Sticky noise button bottom-right */
+.foreground .section {
+  margin: 50px 0;
+  padding: 30px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.foreground .section h2 {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin: 0 0 16px;
+  opacity: 0.9;
+}
+
+.foreground .section p {
+  line-height: 1.7;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.credits {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  line-height: 1.8;
+}
+
+/* Sticky buttons */
 .sticky-noise {
   position: fixed;
   right: 18px;
@@ -497,7 +140,6 @@ h1 {
   box-shadow: 0 8px 20px rgba(255,255,255,0.04);
 }
 
-/* Open player button (small top-right control) */
 .open-player {
   position: fixed;
   top: 18px;
@@ -512,7 +154,7 @@ h1 {
   backdrop-filter: blur(6px);
 }
 
-/* Fullscreen player controls overlay */
+/* Fullscreen player controls */
 .player-controls {
   position: fixed;
   inset: 0;
@@ -542,15 +184,33 @@ h1 {
   cursor: pointer;
 }
 
-/* make sure text remains legible over video */
-.foreground h1, .foreground .meta, .foreground p, .foreground h2 {
+.replay-button {
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
-  text-shadow: 0 2px 18px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  padding: 12px 28px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 200ms ease;
+  backdrop-filter: blur(8px);
+}
+
+.replay-button:hover,
+.replay-button:focus-visible {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  outline: none;
 }
 
 @media (max-width: 640px) {
   .foreground .page {
-    padding: 50vh 16px 80px;
+    padding: 8vh 16px 80px;
   }
 
   .sticky-noise {
