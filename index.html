@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>You Are Not Alone – Film</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="stylesheet" href="styles/main.css?v=2025f" />
+  <link rel="stylesheet" href="styles/main.css?v=2025g" />
 </head>
 <body>
   <!-- Noise layer (toggleable) -->
@@ -98,48 +98,54 @@
       }
 
       // Open fullscreen player
-      openPlayer.addEventListener('click', async () => {
-        if (!video) return;
-        // This is a user gesture — attempt to unmute and resume playback with sound
-        try {
-          video.muted = false;
-          await video.play();
-        } catch (err) {
-          // If unmuting or play fails, continue anyway
-        }
-        try {
-          await video.requestFullscreen();
-        } catch (err) {
-          // ignore fullscreen errors
-        }
-        playerPlay.textContent = video.paused ? 'Play' : 'Pause';
-        playerPlay.focus();
-      });
+      if (openPlayer) {
+        openPlayer.addEventListener('click', async () => {
+          if (!video) return;
+          // This is a user gesture — attempt to unmute and resume playback with sound
+          try {
+            video.muted = false;
+            await video.play();
+          } catch (err) {
+            // If unmuting or play fails, continue anyway
+          }
+          try {
+            await video.requestFullscreen();
+          } catch (err) {
+            // ignore fullscreen errors
+          }
+          if (playerPlay) playerPlay.textContent = video.paused ? 'Play' : 'Pause';
+          if (playerPlay) playerPlay.focus();
+        });
+      }
 
       // Play/pause toggle
-      playerPlay.addEventListener('click', () => {
-        if (!video) return;
-        if (video.paused) video.play(); else video.pause();
-        playerPlay.textContent = video.paused ? 'Play' : 'Pause';
-      });
+      if (playerPlay) {
+        playerPlay.addEventListener('click', () => {
+          if (!video) return;
+          if (video.paused) video.play(); else video.pause();
+          playerPlay.textContent = video.paused ? 'Play' : 'Pause';
+        });
 
-      // Allow spacebar to toggle play when controls focused
-      playerPlay.addEventListener('keydown', (e) => {
-        if (e.code === 'Space') {
-          e.preventDefault();
-          playerPlay.click();
-        }
-      });
+        // Allow spacebar to toggle play when controls focused
+        playerPlay.addEventListener('keydown', (e) => {
+          if (e.code === 'Space') {
+            e.preventDefault();
+            playerPlay.click();
+          }
+        });
+      }
 
       // Noise toggle
-      playerNoise.addEventListener('click', () => {
-        toggleNoise();
-        playerNoise.focus();
-      });
+      if (playerNoise) {
+        playerNoise.addEventListener('click', () => {
+          toggleNoise();
+        });
+      }
 
       // Update play button text on play/pause
-      video.addEventListener('play', () => { playerPlay.textContent = 'Pause'; });
-      video.addEventListener('pause', () => { playerPlay.textContent = 'Play'; });
+      if (video && playerPlay) {
+        video.addEventListener('play', () => { playerPlay.textContent = 'Pause'; });
+        video.addEventListener('pause', () => { playerPlay.textContent = 'Play'; });
 
       // Replay button restarts video and scrolls to top
       if (replayBtn) {
