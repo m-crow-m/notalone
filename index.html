@@ -201,14 +201,16 @@
         const io = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             const el = entry.target;
-            if (entry.intersectionRatio >= 0.48) {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+              // Remove is-active from all sections first
+              sections.forEach(s => s.classList.remove('is-active'));
+              // Add to current section
               el.classList.add('is-active');
-            } else {
-              el.classList.remove('is-active');
             }
           });
         }, {
-          threshold: [0, 0.48, 1]
+          threshold: [0, 0.5, 1],
+          rootMargin: '-25% 0px -25% 0px'
         });
 
         sections.forEach(s => io.observe(s));
