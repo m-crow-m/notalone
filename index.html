@@ -192,6 +192,27 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
+
+      // Interactive scroll: highlight the section currently in view
+      (function enableSectionFocus() {
+        const sections = Array.from(document.querySelectorAll('.foreground .section'));
+        if (!sections.length || !('IntersectionObserver' in window)) return;
+
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const el = entry.target;
+            if (entry.intersectionRatio >= 0.48) {
+              el.classList.add('is-active');
+            } else {
+              el.classList.remove('is-active');
+            }
+          });
+        }, {
+          threshold: [0, 0.48, 1]
+        });
+
+        sections.forEach(s => io.observe(s));
+      })();
     });
   </script>
 
