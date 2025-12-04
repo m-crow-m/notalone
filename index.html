@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>You Are Not Alone – Film</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="stylesheet" href="styles/main.css?v=2025k" />
+  <link rel="stylesheet" href="styles/main.css?v=2025m" />
 </head>
 <body>
 
@@ -20,28 +20,28 @@
       </header>
 
       <section class="section magnetic-section" id="context">
-        <h2 class="section-label">PROJECT CONTEXT</h2>
+        <h2 class="section-label scramble-text" data-text="PROJECT CONTEXT">PROJECT CONTEXT</h2>
         <p class="magnetic-paragraph">
           This short film is the final piece from a six week experiment in building a story almost entirely out of AI generated material. It traces how a person disappears into their own devices. It personifies a commodity that is new to us. The assignment was to test AI as a creative collaborator, so the film becomes both a narrative and a live stress test of what these tools can and cannot feel like.
         </p>
       </section>
 
       <section class="section magnetic-section" id="statement">
-        <h2 class="section-label">ARTIST STATEMENT</h2>
+        <h2 class="section-label scramble-text" data-text="ARTIST STATEMENT">ARTIST STATEMENT</h2>
         <p class="magnetic-paragraph">
           I wanted to make something quiet, ugly, a little sick. The film follows a loose path moving from foggy observation to uncanny reflections. I am not interested in spectacle, I am interested in the dread of being watched by your own machines. This piece is about erosion more than plot, how a person, or thing, thins out when overworked, overstressed.
         </p>
       </section>
 
       <section class="section magnetic-section" id="process">
-        <h2 class="section-label">PROCESS AND AI</h2>
+        <h2 class="section-label scramble-text" data-text="PROCESS AND AI">PROCESS AND AI</h2>
         <p class="magnetic-paragraph">
           All visuals were generated and iterated in Pika, then cut, layered, and manipulated in Premiere. I rejected most of the first passes, which kept trying to be glossy, cinematic, and colorful. I pushed the prompts toward stripped down rooms, harsh grain, and uncomfortable pacing, then used editing, looping, and simple effects to roughen them further. Sound was built in Suno as a variety of oppressive tracks which were then layered and echoed. Instead of a "score," the audio is more like a slow mechanical panic attack underneath everything. Along the way I walked away from local models, overly polished looks, and any shot that felt like a tech demo. The goal was not "look what AI can do," but "look how wrong this feels."
         </p>
       </section>
 
       <section class="section magnetic-section" id="research">
-        <h2 class="section-label">RESEARCH CONTEXT</h2>
+        <h2 class="section-label scramble-text" data-text="RESEARCH CONTEXT">RESEARCH CONTEXT</h2>
         <p class="magnetic-paragraph">
           This film grows out of my research on AI and emotion, specifically how far AI generated visual and audio content can actually carry complex feelings before human intervention has to step in. My working question is how much directing, curating, and reworking it takes to move AI output from "cool" to genuinely unsettling or moving. The project treats each shot and sound as evidence, testing whether the emotional weight comes from the model itself or from the way I bend, sequence, and break its results.
         </p>
@@ -56,7 +56,7 @@
       </section>
 
       <section class="section magnetic-section" id="credits">
-        <h2 class="section-label">CREDITS</h2>
+        <h2 class="section-label scramble-text" data-text="CREDITS">CREDITS</h2>
         <p class="credits magnetic-paragraph">
           Concept, direction, edit: Jaeden Crow<br />
           Course: AI and Design, Eastern Washington University<br />
@@ -101,21 +101,68 @@
       const sections = document.querySelectorAll('.magnetic-section');
       const header = document.querySelector('.magnetic-header');
       
+      // Scramble text effect - letters cycle through random chars before revealing
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*<>[]{}';
+      
+      function scrambleText(element) {
+        const originalText = element.getAttribute('data-text') || element.textContent;
+        const duration = 1200; // total animation time
+        const frameRate = 30; // ms between updates
+        const totalFrames = duration / frameRate;
+        let frame = 0;
+        
+        element.style.opacity = '1';
+        
+        const interval = setInterval(() => {
+          frame++;
+          const progress = frame / totalFrames;
+          
+          // Calculate how many letters should be revealed
+          const revealedCount = Math.floor(progress * originalText.length);
+          
+          let newText = '';
+          for (let i = 0; i < originalText.length; i++) {
+            if (originalText[i] === ' ') {
+              newText += ' ';
+            } else if (i < revealedCount) {
+              // Revealed - show original
+              newText += originalText[i];
+            } else {
+              // Still scrambling - show random char
+              newText += chars[Math.floor(Math.random() * chars.length)];
+            }
+          }
+          
+          element.textContent = newText;
+          
+          if (frame >= totalFrames) {
+            clearInterval(interval);
+            element.textContent = originalText;
+            element.classList.add('revealed');
+          }
+        }, frameRate);
+      }
+      
       // Animate header on load
       if (header) {
         header.classList.add('animate-in');
       }
 
-      // Section scroll animations - animate headings when sections enter view
+      // Section scroll animations - trigger scramble effect when sections enter view
       const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !entry.target.classList.contains('animate-in')) {
             entry.target.classList.add('animate-in');
+            // Find and scramble the heading
+            const heading = entry.target.querySelector('.scramble-text');
+            if (heading && !heading.classList.contains('revealed')) {
+              scrambleText(heading);
+            }
           }
         });
       }, {
-        threshold: 0.15,
-        rootMargin: '-80px'
+        threshold: 0.2,
+        rootMargin: '-100px'
       });
 
       sections.forEach(section => sectionObserver.observe(section));
