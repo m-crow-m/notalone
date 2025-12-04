@@ -84,7 +84,7 @@ export default function App() {
     <div className="relative w-full h-screen overflow-hidden bg-black text-white">
       {/* Exit button - top left */}
       <a
-        href="../index.html"
+        href="index.html"
         className="fixed top-4 left-4 md:top-6 md:left-6 z-[100] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full transition-all duration-200 group"
         aria-label="Return to video page"
       >
