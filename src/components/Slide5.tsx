@@ -58,23 +58,6 @@ export function Slide5() {
                 />
               </div>
             </div>
-
-            {/* Lightbox overlay */}
-            {isLightboxOpen && (
-              <div 
-                className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm"
-                onClick={() => setIsLightboxOpen(false)}
-              >
-                <div className="max-w-5xl max-h-[90vh] w-full">
-                  <img 
-                    src="/notalone/images/local.png" 
-                    alt="local model UI - full view"
-                    className="w-full h-auto object-contain"
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Right column */}
@@ -116,6 +99,23 @@ export function Slide5() {
             </div>
           </div>
         </div>
+
+        {/* Lightbox overlay - moved outside grid */}
+        {isLightboxOpen && (
+          <div 
+            className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm"
+            onClick={() => setIsLightboxOpen(false)}
+          >
+            <div className="max-w-5xl max-h-[90vh] w-full">
+              <img 
+                src="/notalone/images/local.png" 
+                alt="local model UI - full view"
+                className="w-full h-auto object-contain"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
