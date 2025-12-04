@@ -38,17 +38,6 @@ export function Slide8() {
               </p>
             </div>
           </div>
-
-          {/* Quiet minimal image - positioned separately */}
-          <div className="md:col-span-1 lg:col-span-4 lg:col-start-3 mt-8 md:mt-12">
-            <div className="overflow-hidden group opacity-60">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1739647153034-1ce7efe3fc02?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxxdWlldCUyMGNvbnRlbXBsYXRpdmV8ZW58MXx8fHwxNzY0ODA2NDU2fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="reflection image placeholder"
-                className="w-full h-[180px] md:h-[200px] object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
-              />
-            </div>
-          </div>
         </div>
       </div>
     </div>

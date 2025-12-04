@@ -65,14 +65,14 @@ export function Slide4() {
             <ImageWithFallback
               src="/notalone/images/process1.png"
               alt="Process image 1"
-              className="w-full h-[180px] md:h-[220px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
             />
           </div>
           <div className="overflow-hidden group">
             <ImageWithFallback
               src="/notalone/images/process 2.png"
               alt="Process image 2"
-              className="w-full h-[180px] md:h-[220px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
             />
           </div>
         </div>

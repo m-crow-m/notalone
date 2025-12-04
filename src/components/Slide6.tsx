@@ -1,5 +1,4 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { Play } from 'lucide-react';
 
 export function Slide6() {
   return (
@@ -40,15 +39,9 @@ export function Slide6() {
               <ImageWithFallback
                 src="/notalone/images/creature.png"
                 alt="AI generated creature from video"
-                className="w-full h-[300px] md:h-[400px] lg:h-[450px] object-cover transition-transform duration-700 group-hover:scale-105"
-              />
+              className="w-full h-[300px] md:h-[400px] lg:h-[450px] object-cover transition-transform duration-700 group-hover:scale-105"
+            />
             </div>
-
-            {/* Play button */}
-            <button className="mt-4 md:mt-6 flex items-center gap-3 px-5 md:px-6 py-2.5 md:py-3 border border-white text-white hover:bg-white hover:text-black transition-all duration-300 group">
-              <Play className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              <span className="text-sm">Play video</span>
-            </button>
           </div>
         </div>
       </div>
