@@ -90,16 +90,56 @@ export function Slide7() {
             </motion.div>
           </div>
 
-          {/* Bottom section - themes */}
+          {/* Bottom section - themes and download link */}
           <motion.div 
             className="mt-10 md:mt-12 ml-0 md:ml-4 pt-6 md:pt-8 border-t border-white/10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.2 }}
           >
-            <p className="text-xs opacity-50" style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            <p className="text-xs opacity-50 mb-6" style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase' }}>
               Themes: authorship bias · basic affect vs complex emotion · human direction as meaning · ethics of credit and training data
             </p>
+            
+            <a 
+              href="/notalone/Here for You_ The Human Burden in AI-Generated Emotional Media.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '12px 24px',
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                color: '#fff',
+                textDecoration: 'none',
+                fontSize: '0.75rem',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" y1="18" x2="12" y2="12"/>
+                <line x1="9" y1="15" x2="12" y2="18"/>
+                <line x1="15" y1="15" x2="12" y2="18"/>
+              </svg>
+              Read Full Research Paper (PDF)
+            </a>
           </motion.div>
         </div>
       </div>
