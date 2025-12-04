@@ -8,52 +8,62 @@ interface MagneticTextProps {
 }
 
 export function MagneticText({ text, className = '', as = 'span', delay = 0 }: MagneticTextProps) {
-  const letters = text.split('');
+  const words = text.split(' ');
   const Tag = as;
   
+  let letterIndex = 0;
+  
   return (
-    <Tag className={`inline-flex flex-wrap ${className}`} style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>
-      {letters.map((letter, index) => {
-        // Random variations for each letter
-        const randomRotate = (Math.random() - 0.5) * 8; // -4 to 4 degrees
-        const randomY = (Math.random() - 0.5) * 6; // -3 to 3 px
-        const randomX = (Math.random() - 0.5) * 4; // -2 to 2 px
+    <Tag className={`inline-flex flex-wrap gap-x-3 ${className}`} style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>
+      {words.map((word, wordIndex) => {
+        const letters = word.split('');
         
         return (
-          <motion.span
-            key={index}
-            initial={{ 
-              opacity: 0, 
-              y: 50 + Math.random() * 30,
-              x: (Math.random() - 0.5) * 100,
-              rotate: (Math.random() - 0.5) * 45,
-              scale: 0.5
-            }}
-            animate={{ 
-              opacity: 1, 
-              y: randomY,
-              x: randomX,
-              rotate: randomRotate,
-              scale: 1
-            }}
-            transition={{
-              duration: 0.6,
-              delay: delay + index * 0.03,
-              ease: [0.23, 1, 0.32, 1]
-            }}
-            className="inline-block origin-center"
-            style={{
-              marginRight: letter === ' ' ? '0.25em' : '-0.02em',
-              display: letter === ' ' ? 'inline' : 'inline-block'
-            }}
-            whileHover={{
-              rotate: randomRotate + (Math.random() - 0.5) * 10,
-              scale: 1.1,
-              transition: { duration: 0.2 }
-            }}
-          >
-            {letter === ' ' ? '\u00A0' : letter}
-          </motion.span>
+          <span key={wordIndex} className="inline-flex whitespace-nowrap">
+            {letters.map((letter, index) => {
+              const currentLetterIndex = letterIndex++;
+              // Random variations for each letter
+              const randomRotate = (Math.random() - 0.5) * 8; // -4 to 4 degrees
+              const randomY = (Math.random() - 0.5) * 6; // -3 to 3 px
+              const randomX = (Math.random() - 0.5) * 4; // -2 to 2 px
+              
+              return (
+                <motion.span
+                  key={index}
+                  initial={{ 
+                    opacity: 0, 
+                    y: 50 + Math.random() * 30,
+                    x: (Math.random() - 0.5) * 100,
+                    rotate: (Math.random() - 0.5) * 45,
+                    scale: 0.5
+                  }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: randomY,
+                    x: randomX,
+                    rotate: randomRotate,
+                    scale: 1
+                  }}
+                  transition={{
+                    duration: 0.6,
+                    delay: delay + currentLetterIndex * 0.03,
+                    ease: [0.23, 1, 0.32, 1]
+                  }}
+                  className="inline-block origin-center"
+                  style={{
+                    marginRight: '-0.02em'
+                  }}
+                  whileHover={{
+                    rotate: randomRotate + (Math.random() - 0.5) * 10,
+                    scale: 1.1,
+                    transition: { duration: 0.2 }
+                  }}
+                >
+                  {letter}
+                </motion.span>
+              );
+            })}
+          </span>
         );
       })}
     </Tag>
