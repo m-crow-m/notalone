@@ -82,6 +82,17 @@ export default function App() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black text-white">
+      {/* Exit button - top left */}
+      <a
+        href="../index.html"
+        className="fixed top-4 left-4 md:top-6 md:left-6 z-[100] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full transition-all duration-200 group"
+        aria-label="Return to video page"
+      >
+        <svg className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </a>
+      
       {/* Main slide container */}
       <div className="w-full h-full relative" style={{ perspective: '2000px' }}>
         <AnimatePresence initial={false} custom={direction} mode="wait">
