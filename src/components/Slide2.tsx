@@ -27,22 +27,11 @@ export function Slide2() {
         </div>
 
         {/* Center - research question box */}
-        <div className="md:col-span-1 lg:col-span-4 flex items-center">
+        <div className="md:col-span-1 lg:col-span-5 flex items-center">
           <div className="border border-white/30 p-6 md:p-8 bg-white/5">
             <p className="text-base md:text-xl leading-relaxed">
               Research question: How much human direction does it take for AI generated visual and audio work to create a real emotional response, and where do its limits start to show?
             </p>
-          </div>
-        </div>
-
-        {/* Right edge - tall image */}
-        <div className="hidden lg:block lg:col-span-3 lg:col-start-10">
-          <div className="relative w-full h-full overflow-hidden group">
-            <ImageWithFallback
-              src="https://images.unsplash.com/photo-1763318156213-37e41cd0dfec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNlYXJjaCUyMG5vdGVzJTIwcGFwZXJ8ZW58MXx8fHwxNzY0ODA2NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080"
-              alt="notes and research placeholder"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
           </div>
         </div>
       </div>

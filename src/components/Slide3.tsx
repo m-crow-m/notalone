@@ -4,15 +4,15 @@ export function Slide3() {
   return (
     <div className="w-full h-full px-6 md:px-12 lg:px-16 py-12 md:py-16 lg:py-20 flex items-start lg:items-center overflow-y-auto">
       <div className="max-w-[1800px] mx-auto w-full pt-4 md:pt-0">
-        {/* Header - shifted down and right */}
-        <div className="ml-0 md:ml-12 lg:ml-20 mb-10 md:mb-16">
+        {/* Header */}
+        <div className="mb-8 md:mb-12">
           <h2 className="text-4xl md:text-5xl mb-2">Methodology</h2>
           <p className="text-base md:text-lg opacity-60">Moving between making, feeling, and adjusting.</p>
         </div>
 
-        <div className="relative">
-          {/* Three column grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 ml-0 md:ml-6 lg:ml-12 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Left column - stacked text sections */}
+          <div className="space-y-6 md:space-y-8">
             <div>
               <h3 className="text-xl md:text-2xl mb-3 md:mb-4">Tools</h3>
               <p className="text-sm opacity-70 leading-relaxed">
@@ -35,12 +35,12 @@ export function Slide3() {
             </div>
           </div>
 
-          {/* Image below grid */}
-          <div className="ml-0 md:ml-6 lg:ml-12 mt-10 md:mt-16 max-w-full md:w-[480px] overflow-hidden group">
+          {/* Right column - larger image */}
+          <div className="overflow-hidden group">
             <ImageWithFallback
               src="/notalone/images/tools.png"
               alt="AI tools and workspace"
-              className="w-full h-[200px] md:h-[280px] object-contain transition-transform duration-700 group-hover:scale-105 border border-white/10"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
             />
           </div>
         </div>
