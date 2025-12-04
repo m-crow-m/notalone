@@ -35,13 +35,15 @@ export function Slide3() {
             </div>
           </div>
 
-          {/* Right column - larger image */}
-          <div className="overflow-hidden group">
-            <ImageWithFallback
-              src="/notalone/images/tools.png"
-              alt="AI tools and workspace"
-              className="w-full max-h-[400px] md:max-h-[500px] object-contain transition-transform duration-700 group-hover:scale-105"
-            />
+          {/* Right column - constrained image */}
+          <div className="flex items-center justify-center">
+            <div className="max-w-md w-full overflow-hidden group">
+              <ImageWithFallback
+                src="/notalone/images/tools.png"
+                alt="AI tools and workspace"
+                className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
           </div>
         </div>
       </div>
