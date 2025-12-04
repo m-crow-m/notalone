@@ -64,9 +64,6 @@ export function Slide7() {
                   alt="research paper visualization"
                   className="w-full h-[200px] md:h-[220px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
                 />
-                <div className="text-xs opacity-30 mt-2 rotate-1">
-                  paper notes and diagram placeholder
-                </div>
               </div>
             </div>
           </div>

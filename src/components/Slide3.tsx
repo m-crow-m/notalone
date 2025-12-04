@@ -40,11 +40,8 @@ export function Slide3() {
             <ImageWithFallback
               src="/notalone/images/tools.png"
               alt="AI tools and workspace"
-              className="w-full h-[200px] md:h-[280px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
+              className="w-full h-[200px] md:h-[280px] object-contain transition-transform duration-700 group-hover:scale-105 border border-white/10"
             />
-            <div className="text-xs opacity-30 mt-2">
-              process UI placeholder
-            </div>
           </div>
         </div>
       </div>

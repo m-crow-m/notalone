@@ -29,9 +29,6 @@ export function Slide1() {
               alt="AI generated faces"
               className="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute bottom-4 right-4 text-xs opacity-30">
-              video still placeholder
-            </div>
           </div>
         </div>
       </div>

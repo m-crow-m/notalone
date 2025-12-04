@@ -47,9 +47,6 @@ export function Slide8() {
                 alt="reflection image placeholder"
                 className="w-full h-[180px] md:h-[200px] object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
               />
-              <div className="text-xs opacity-30 mt-2">
-                reflection image placeholder
-              </div>
             </div>
           </div>
         </div>

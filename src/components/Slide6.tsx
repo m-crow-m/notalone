@@ -42,9 +42,6 @@ export function Slide6() {
                 alt="AI generated creature from video"
                 className="w-full h-[300px] md:h-[400px] lg:h-[450px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute bottom-4 right-4 text-xs opacity-30">
-                final still placeholder
-              </div>
             </div>
 
             {/* Play button */}

@@ -41,11 +41,10 @@ export function Slide4() {
             {/* First overlapping image */}
             <div className="mt-10 md:mt-12 overflow-hidden group">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1678617935593-461661265f39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aWRlbyUyMGZyYW1lcyUyMGNvbXBhcmlzb258ZW58MXx8fHwxNzY0ODA2NDU1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="https://images.unsplash.com/photo-1745356699391-08e44a5bdc14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHVkaW8lMjB3b3Jrc3BhY2V8ZW58MXx8fHwxNzY0ODA2NDU4fDA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="early frame placeholder"
-                className="w-full h-[200px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
+                className="w-full h-[200px] md:h-[250px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
               />
-              <div className="text-xs opacity-30 mt-2">early frame placeholder</div>
             </div>
           </div>
 

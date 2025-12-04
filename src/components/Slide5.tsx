@@ -51,9 +51,6 @@ export function Slide5() {
                   alt="local model UI"
                   className="w-full h-[220px] md:h-[280px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
                 />
-                <div className="text-xs opacity-30 mt-2 -rotate-2">
-                  local model UI placeholder
-                </div>
               </div>
             </div>
           </div>
