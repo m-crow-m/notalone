@@ -10,7 +10,7 @@ export function Slide3() {
           <p className="text-base md:text-lg opacity-60">Moving between making, feeling, and adjusting.</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Left column - stacked text sections */}
           <div className="space-y-6 md:space-y-8">
             <div>
@@ -36,7 +36,7 @@ export function Slide3() {
           </div>
 
           {/* Right column - constrained image */}
-          <div className="flex items-center justify-center">
+          <div className="flex items-start justify-center md:justify-end">
             <div className="max-w-md w-full overflow-hidden group">
               <ImageWithFallback
                 src="/notalone/images/tools.png"
