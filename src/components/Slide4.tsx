@@ -19,7 +19,7 @@ export function Slide4() {
     <div className="w-full h-full px-6 md:px-12 lg:px-16 py-12 md:py-14 lg:py-16 flex items-start lg:items-center overflow-y-auto">
       <div className="max-w-[1800px] mx-auto w-full pt-4 md:pt-0">
         {/* Header */}
-        <div className="mb-10 md:mb-12 ml-0 md:ml-4 lg:ml-8">
+        <div className="mb-10 md:mb-12 ml-0 md:ml-4 lg:ml-8 mt-8 md:mt-12">
           <h2 className="text-4xl md:text-5xl mb-2">Process</h2>
           <p className="text-base md:text-lg opacity-60">Testing what actually moves me.</p>
         </div>
@@ -65,14 +65,14 @@ export function Slide4() {
             <ImageWithFallback
               src="/notalone/images/process1.png"
               alt="Process image 1"
-              className="w-full h-[250px] md:h-[300px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
+              className="w-full h-[180px] md:h-[220px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
             />
           </div>
           <div className="overflow-hidden group">
             <ImageWithFallback
               src="/notalone/images/process 2.png"
               alt="Process image 2"
-              className="w-full h-[250px] md:h-[300px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
+              className="w-full h-[180px] md:h-[220px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
             />
           </div>
         </div>

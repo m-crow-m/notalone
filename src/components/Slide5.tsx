@@ -1,6 +1,8 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useState } from 'react';
 
 export function Slide5() {
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   return (
     <div className="w-full h-full px-6 md:px-12 lg:px-16 py-12 md:py-16 lg:py-20 flex items-start overflow-y-auto">
       <div className="max-w-[1800px] mx-auto w-full pb-16 md:pb-20 pt-4 md:pt-0">
@@ -45,7 +47,10 @@ export function Slide5() {
 
             {/* Rotated image - positioned below left column */}
             <div className="mt-6 md:mt-8">
-              <div className="overflow-hidden group transform rotate-2">
+              <div 
+                className="overflow-hidden group transform rotate-2 cursor-pointer"
+                onClick={() => setIsLightboxOpen(true)}
+              >
                 <ImageWithFallback
                   src="/notalone/images/local.png"
                   alt="local model UI"
@@ -53,6 +58,23 @@ export function Slide5() {
                 />
               </div>
             </div>
+
+            {/* Lightbox overlay */}
+            {isLightboxOpen && (
+              <div 
+                className="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4"
+                onClick={() => setIsLightboxOpen(false)}
+              >
+                <div className="max-w-5xl max-h-[90vh] w-full">
+                  <img 
+                    src="/notalone/images/local.png" 
+                    alt="local model UI - full view"
+                    className="w-full h-auto object-contain"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right column */}
