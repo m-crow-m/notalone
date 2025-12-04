@@ -85,13 +85,46 @@ export default function App() {
       {/* Exit button - top left */}
       <button
         onClick={() => window.location.href = 'index.html'}
-        className="fixed top-4 left-4 md:top-6 md:left-6 z-[100] w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white hover:bg-gray-200 shadow-lg transition-all duration-200 cursor-pointer"
-        style={{ borderRadius: '50%' }}
+        style={{
+          position: 'fixed',
+          top: '1rem',
+          left: '1rem',
+          zIndex: 100,
+          width: '3rem',
+          height: '3rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'white',
+          borderRadius: '50%',
+          border: 'none',
+          cursor: 'pointer',
+          boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
+          transition: 'all 0.2s'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f3f4f6'}
+        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
         aria-label="Return to video page"
       >
-        <div className="relative w-6 h-6 md:w-7 md:h-7">
-          <div className="absolute top-1/2 left-0 w-full h-0.5 bg-black transform -translate-y-1/2 rotate-45"></div>
-          <div className="absolute top-1/2 left-0 w-full h-0.5 bg-black transform -translate-y-1/2 -rotate-45"></div>
+        <div style={{ position: 'relative', width: '1.5rem', height: '1.5rem' }}>
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: 0,
+            width: '100%',
+            height: '2px',
+            backgroundColor: 'black',
+            transform: 'translateY(-50%) rotate(45deg)'
+          }}></div>
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: 0,
+            width: '100%',
+            height: '2px',
+            backgroundColor: 'black',
+            transform: 'translateY(-50%) rotate(-45deg)'
+          }}></div>
         </div>
       </button>
       
