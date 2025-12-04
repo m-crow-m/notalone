@@ -87,33 +87,39 @@ export default function App() {
         onClick={() => window.location.href = 'index.html'}
         style={{
           position: 'fixed',
-          top: '1rem',
-          left: '1rem',
+          top: '1.5rem',
+          left: '1.5rem',
           zIndex: 100,
-          width: '3rem',
-          height: '3rem',
+          width: '2.5rem',
+          height: '2.5rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(10px)',
           borderRadius: '50%',
-          border: 'none',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
           cursor: 'pointer',
-          boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
           transition: 'all 0.2s'
         }}
-        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f3f4f6'}
-        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+        }}
         aria-label="Return to video page"
       >
-        <div style={{ position: 'relative', width: '1.5rem', height: '1.5rem' }}>
+        <div style={{ position: 'relative', width: '1.25rem', height: '1.25rem' }}>
           <div style={{
             position: 'absolute',
             top: '50%',
             left: 0,
             width: '100%',
-            height: '2px',
-            backgroundColor: 'black',
+            height: '1.5px',
+            backgroundColor: 'white',
             transform: 'translateY(-50%) rotate(45deg)'
           }}></div>
           <div style={{
@@ -121,8 +127,8 @@ export default function App() {
             top: '50%',
             left: 0,
             width: '100%',
-            height: '2px',
-            backgroundColor: 'black',
+            height: '1.5px',
+            backgroundColor: 'white',
             transform: 'translateY(-50%) rotate(-45deg)'
           }}></div>
         </div>
