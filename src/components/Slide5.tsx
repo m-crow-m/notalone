@@ -62,7 +62,7 @@ export function Slide5() {
             {/* Lightbox overlay */}
             {isLightboxOpen && (
               <div 
-                className="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4"
+                className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm"
                 onClick={() => setIsLightboxOpen(false)}
               >
                 <div className="max-w-5xl max-h-[90vh] w-full">
