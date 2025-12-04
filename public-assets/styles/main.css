@@ -18,25 +18,43 @@ body {
   display: none;
 }
 
-/* Glitch overlay for transitions */
-.glitch-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
+/* Section heading animation on scroll */
+.section-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  margin: 0 0 24px;
   opacity: 0;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 0, 100, 0.3) 0%,
-    rgba(0, 255, 200, 0.2) 50%,
-    rgba(100, 0, 255, 0.3) 100%
-  );
-  mix-blend-mode: difference;
-  transition: opacity 80ms ease;
+  max-width: 52ch;
+  position: relative;
+  padding-left: 20px;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glitch-overlay.active {
-  opacity: 1;
+.section-label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleX(0);
+  width: 10px;
+  height: 2px;
+  background: currentColor;
+  opacity: 0.6;
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+}
+
+.magnetic-section.animate-in .section-label {
+  opacity: 0.6;
+  transform: translateY(0);
+}
+
+.magnetic-section.animate-in .section-label::before {
+  transform: translateY(-50%) scaleX(1);
 }
 
 /* Background video (fixed to viewport, stays in place while content scrolls) */
@@ -180,31 +198,6 @@ body {
   .magnetic-section.is-active {
     transform: scale(1.04);
   }
-}
-
-/* Section labels - Swiss style */
-.section-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-weight: 700;
-  margin: 0 0 24px;
-  opacity: 0.5;
-  max-width: 52ch;
-  position: relative;
-  padding-left: 20px;
-}
-
-.section-label::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 2px;
-  background: currentColor;
-  opacity: 0.6;
 }
 
 /* Magnetic paragraph text */

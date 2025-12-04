@@ -7,8 +7,7 @@
   <link rel="stylesheet" href="styles/main.css?v=2025k" />
 </head>
 <body>
-  <!-- Glitch overlay for transitions -->
-  <div id="glitch-overlay" class="glitch-overlay" aria-hidden="true"></div>
+
 
   <!-- Foreground content that scrolls over the video -->
   <div class="foreground">
@@ -94,7 +93,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const video = document.getElementById('film');
-      const glitch = document.getElementById('glitch-overlay');
       const openPlayer = document.getElementById('open-player');
       const playerPlay = document.getElementById('player-play');
       const replayBtn = document.getElementById('replay-btn');
@@ -108,21 +106,16 @@
         header.classList.add('animate-in');
       }
 
-      // Section scroll animations
+      // Section scroll animations - animate headings when sections enter view
       const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-in');
-            // Trigger glitch effect
-            if (glitch) {
-              glitch.classList.add('active');
-              setTimeout(() => glitch.classList.remove('active'), 150);
-            }
           }
         });
       }, {
-        threshold: 0.2,
-        rootMargin: '-50px'
+        threshold: 0.15,
+        rootMargin: '-80px'
       });
 
       sections.forEach(section => sectionObserver.observe(section));
