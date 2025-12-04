@@ -85,11 +85,14 @@ export default function App() {
       {/* Exit button - top left */}
       <button
         onClick={() => window.location.href = 'index.html'}
-        className="fixed top-4 left-4 md:top-6 md:left-6 z-[100] w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white hover:bg-gray-100 shadow-lg transition-all duration-200 group cursor-pointer overflow-hidden"
-        style={{ borderRadius: '9999px !important' }}
+        className="fixed top-4 left-4 md:top-6 md:left-6 z-[100] w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white hover:bg-gray-200 shadow-lg transition-all duration-200 cursor-pointer"
+        style={{ borderRadius: '50%' }}
         aria-label="Return to video page"
       >
-        <span className="text-black text-2xl md:text-3xl font-bold leading-none select-none">×</span>
+        <div className="relative w-6 h-6 md:w-7 md:h-7">
+          <div className="absolute top-1/2 left-0 w-full h-0.5 bg-black transform -translate-y-1/2 rotate-45"></div>
+          <div className="absolute top-1/2 left-0 w-full h-0.5 bg-black transform -translate-y-1/2 -rotate-45"></div>
+        </div>
       </button>
       
       {/* Main slide container */}
