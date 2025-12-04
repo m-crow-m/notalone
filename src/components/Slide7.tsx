@@ -60,8 +60,8 @@ export function Slide7() {
             <div className="lg:col-span-4 lg:col-start-9 lg:row-start-2 mt-6 md:mt-8">
               <div className="overflow-hidden group transform -rotate-1">
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1745356688211-8f58e951ff56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHZpZGVvJTIwc3RpbGx8ZW58MXx8fHwxNzY0ODA2NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="paper notes and diagram placeholder"
+                  src="/notalone/images/dough.png"
+                  alt="research paper visualization"
                   className="w-full h-[200px] md:h-[220px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
                 />
                 <div className="text-xs opacity-30 mt-2 rotate-1">

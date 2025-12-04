@@ -25,8 +25,8 @@ export function Slide1() {
         <div className="lg:col-span-6 lg:col-start-7 mt-6 lg:mt-0">
           <div className="relative overflow-hidden group">
             <ImageWithFallback
-              src="https://images.unsplash.com/photo-1745356688211-8f58e951ff56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHZpZGVvJTIwc3RpbGx8ZW58MXx8fHwxNzY0ODA2NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080"
-              alt="video still placeholder"
+              src="/notalone/images/faces.png"
+              alt="AI generated faces"
               className="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute bottom-4 right-4 text-xs opacity-30">

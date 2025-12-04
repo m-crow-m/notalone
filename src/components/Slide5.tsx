@@ -47,8 +47,8 @@ export function Slide5() {
             <div className="mt-6 md:mt-8">
               <div className="overflow-hidden group transform rotate-2">
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1754548930550-be9fa88874f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMGludGVyZmFjZSUyMGRhcmt8ZW58MXx8fHwxNzY0ODA2NDU2fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="local model UI placeholder"
+                  src="/notalone/images/local.png"
+                  alt="local model UI"
                   className="w-full h-[220px] md:h-[280px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
                 />
                 <div className="text-xs opacity-30 mt-2 -rotate-2">

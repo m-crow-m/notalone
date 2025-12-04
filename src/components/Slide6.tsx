@@ -38,8 +38,8 @@ export function Slide6() {
           <div className="lg:col-span-6 lg:col-start-7 mt-6 lg:mt-0">
             <div className="relative overflow-hidden group">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1705713394592-44383f54185d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbW90aW9uYWwlMjBtaW5pbWFsaXN0fGVufDF8fHx8MTc2NDgwNjQ1Nnww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="final still placeholder"
+                src="/notalone/images/creature.png"
+                alt="AI generated creature from video"
                 className="w-full h-[300px] md:h-[400px] lg:h-[450px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute bottom-4 right-4 text-xs opacity-30">

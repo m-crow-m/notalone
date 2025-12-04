@@ -38,8 +38,8 @@ export function Slide3() {
           {/* Image below grid */}
           <div className="ml-0 md:ml-6 lg:ml-12 mt-10 md:mt-16 max-w-full md:w-[480px] overflow-hidden group">
             <ImageWithFallback
-              src="https://images.unsplash.com/photo-1757310998437-b2e8a7bd2e97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21wdXRlciUyMGludGVyZmFjZSUyMHVpfGVufDF8fHx8MTc2NDgwNjQ1NHww&ixlib=rb-4.1.0&q=80&w=1080"
-              alt="process UI placeholder"
+              src="/notalone/images/tools.png"
+              alt="AI tools and workspace"
               className="w-full h-[200px] md:h-[280px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
             />
             <div className="text-xs opacity-30 mt-2">
