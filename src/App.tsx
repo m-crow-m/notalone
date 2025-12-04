@@ -85,11 +85,11 @@ export default function App() {
       {/* Exit button - top left */}
       <a
         href="index.html"
-        className="fixed top-4 left-4 md:top-6 md:left-6 z-[100] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full transition-all duration-200 group"
+        className="fixed top-4 left-4 md:top-6 md:left-6 z-[100] w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white hover:bg-gray-100 shadow-lg rounded-full transition-all duration-200 group"
         aria-label="Return to video page"
       >
-        <svg className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        <svg className="w-6 h-6 md:w-7 md:h-7 text-black transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
         </svg>
       </a>
       
