@@ -67,16 +67,26 @@ body {
   height: 100vh;
   object-fit: cover;
   object-position: center center;
-  pointer-events: auto;
+  pointer-events: none;
   z-index: -1;
 }
 
-/* When video is fullscreen, show entire video without cropping */
+/* Hide controls by default */
+.bg-video::-webkit-media-controls {
+  display: none !important;
+}
+
+/* When video is fullscreen, show entire video and enable controls */
 .bg-video:fullscreen {
   object-fit: contain !important;
   background: #000 !important;
   width: 100vw !important;
   height: 100vh !important;
+  pointer-events: auto !important;
+}
+
+.bg-video:fullscreen::-webkit-media-controls {
+  display: flex !important;
 }
 
 /* Vendor prefixes for fullscreen */
@@ -85,6 +95,11 @@ body {
   background: #000 !important;
   width: 100vw !important;
   height: 100vh !important;
+  pointer-events: auto !important;
+}
+
+.bg-video:-webkit-full-screen::-webkit-media-controls {
+  display: flex !important;
 }
 
 .bg-video:-moz-full-screen {
@@ -92,6 +107,7 @@ body {
   background: #000 !important;
   width: 100vw !important;
   height: 100vh !important;
+  pointer-events: auto !important;
 }
 
 .bg-video:-ms-fullscreen {
@@ -99,6 +115,7 @@ body {
   background: #000 !important;
   width: 100vw !important;
   height: 100vh !important;
+  pointer-events: auto !important;
 }
 
 /* Foreground content - simple block element that scrolls normally */
