@@ -37,15 +37,6 @@ export function Slide4() {
                 </div>
               ))}
             </div>
-
-            {/* First overlapping image */}
-            <div className="mt-10 md:mt-12 overflow-hidden group">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1745356699391-08e44a5bdc14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHVkaW8lMjB3b3Jrc3BhY2V8ZW58MXx8fHwxNzY0ODA2NDU4fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="early frame placeholder"
-                className="w-full h-[200px] md:h-[250px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
-              />
-            </div>
           </div>
 
           {/* Right column - timeline */}
@@ -65,16 +56,24 @@ export function Slide4() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
 
-            {/* Second overlapping image */}
-            <div className="mt-8 overflow-hidden group">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1764557222299-5cce88abe80c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwd29ya2Zsb3clMjBwcm9jZXNzfGVufDF8fHx8MTc2NDgwNjQ1NXww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="iteration comparison placeholder"
-                className="w-full h-[180px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
-              />
-              <div className="text-xs opacity-30 mt-2">iteration comparison placeholder</div>
-            </div>
+        {/* Images side by side below */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-10 md:mt-12 ml-0 md:ml-4 lg:ml-8">
+          <div className="overflow-hidden group">
+            <ImageWithFallback
+              src="/notalone/images/process1.png"
+              alt="Process image 1"
+              className="w-full h-[250px] md:h-[300px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
+            />
+          </div>
+          <div className="overflow-hidden group">
+            <ImageWithFallback
+              src="/notalone/images/process 2.png"
+              alt="Process image 2"
+              className="w-full h-[250px] md:h-[300px] object-cover transition-transform duration-700 group-hover:scale-105 border border-white/10"
+            />
           </div>
         </div>
       </div>
