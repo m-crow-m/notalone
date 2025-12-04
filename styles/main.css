@@ -71,6 +71,28 @@ body {
   z-index: -1;
 }
 
+/* When video is fullscreen, show entire video without cropping */
+.bg-video:fullscreen {
+  object-fit: contain;
+  background: #000;
+}
+
+/* Vendor prefixes for fullscreen */
+.bg-video:-webkit-full-screen {
+  object-fit: contain;
+  background: #000;
+}
+
+.bg-video:-moz-full-screen {
+  object-fit: contain;
+  background: #000;
+}
+
+.bg-video:-ms-fullscreen {
+  object-fit: contain;
+  background: #000;
+}
+
 /* Foreground content - simple block element that scrolls normally */
 .foreground {
   position: relative;
