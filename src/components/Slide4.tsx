@@ -1,18 +1,20 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { MagneticText } from './MagneticText';
+import { motion } from 'motion/react';
 
 export function Slide4() {
   const notes = [
-    'early outputs too clean, not enough feeling',
-    'small changes in timing shifted the mood more than changing the visuals',
-    'copy like "Here for you" and "You are not alone" felt soft but also a little suspicious',
-    'had to keep rewriting and re timing to avoid it feeling like an empty ad',
+    'EARLY OUTPUTS TOO CLEAN, NOT ENOUGH FEELING',
+    'SMALL CHANGES IN TIMING SHIFTED THE MOOD MORE THAN CHANGING THE VISUALS',
+    'COPY LIKE "HERE FOR YOU" AND "YOU ARE NOT ALONE" FELT SOFT BUT ALSO A LITTLE SUSPICIOUS',
+    'HAD TO KEEP REWRITING AND RE TIMING TO AVOID IT FEELING LIKE AN EMPTY AD',
   ];
 
   const timeline = [
-    'rough concept and emotional goals',
-    'first AI outputs and sound tests',
-    'iterative edits based on my own emotional reaction',
-    'final pass before critique',
+    'ROUGH CONCEPT AND EMOTIONAL GOALS',
+    'FIRST AI OUTPUTS AND SOUND TESTS',
+    'ITERATIVE EDITS BASED ON MY OWN EMOTIONAL REACTION',
+    'FINAL PASS BEFORE CRITIQUE',
   ];
 
   return (
@@ -20,8 +22,17 @@ export function Slide4() {
       <div className="max-w-[1800px] mx-auto w-full pt-4 md:pt-0">
         {/* Header */}
         <div className="mb-10 md:mb-12 ml-0 md:ml-4 lg:ml-8 mt-8 md:mt-12">
-          <h2 className="text-4xl md:text-5xl mb-2">Process</h2>
-          <p className="text-base md:text-lg opacity-60">Testing what actually moves me.</p>
+          <h2 className="text-4xl md:text-5xl mb-2 uppercase tracking-tight font-bold">
+            <MagneticText text="PROCESS" delay={0.1} />
+          </h2>
+          <motion.p 
+            className="text-base md:text-lg opacity-60 uppercase tracking-widest"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 0.6, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+          >
+            Testing what actually moves me.
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8">
@@ -29,12 +40,15 @@ export function Slide4() {
           <div className="md:col-span-1 lg:col-span-5 lg:col-start-2">
             <div className="space-y-3">
               {notes.map((note, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="text-sm opacity-70 pl-4 md:pl-6 border-l border-white/20 py-2 leading-relaxed"
+                  initial={{ opacity: 0, x: -30, rotate: (Math.random() - 0.5) * 3 }}
+                  animate={{ opacity: 1, x: 0, rotate: (Math.random() - 0.5) * 1.5 }}
+                  transition={{ delay: 0.2 + index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-xs opacity-70 pl-4 md:pl-6 border-l border-white/20 py-2 leading-relaxed tracking-wider"
                 >
                   {note}
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -43,17 +57,33 @@ export function Slide4() {
           <div className="md:col-span-1 lg:col-span-4 lg:col-start-8 flex flex-col justify-center">
             <div className="space-y-6 md:space-y-8">
               {timeline.map((step, index) => (
-                <div key={index} className="flex gap-4 items-start">
+                <motion.div 
+                  key={index} 
+                  className="flex gap-4 items-start"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.12, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                >
                   <div className="flex flex-col items-center mt-1">
-                    <div className="w-3 h-3 rounded-full bg-white" />
+                    <motion.div 
+                      className="w-3 h-3 rounded-full bg-white"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.4 + index * 0.12, duration: 0.3, type: 'spring' }}
+                    />
                     {index < timeline.length - 1 && (
-                      <div className="w-px h-12 md:h-16 bg-white/20 mt-2" />
+                      <motion.div 
+                        className="w-px bg-white/20 mt-2"
+                        initial={{ height: 0 }}
+                        animate={{ height: '4rem' }}
+                        transition={{ delay: 0.5 + index * 0.12, duration: 0.4 }}
+                      />
                     )}
                   </div>
-                  <p className="text-sm opacity-70 leading-relaxed flex-1 pt-0.5">
+                  <p className="text-xs opacity-70 leading-relaxed flex-1 pt-0.5 tracking-wider">
                     {step}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -61,20 +91,30 @@ export function Slide4() {
 
         {/* Images side by side below */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-10 md:mt-12 ml-0 md:ml-4 lg:ml-8">
-          <div className="overflow-hidden group">
+          <motion.div 
+            className="overflow-hidden group"
+            initial={{ opacity: 0, y: 40, rotate: -2 }}
+            animate={{ opacity: 1, y: 0, rotate: 0 }}
+            transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
             <ImageWithFallback
               src="/notalone/images/process1.png"
               alt="Process image 1"
-              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1"
             />
-          </div>
-          <div className="overflow-hidden group">
+          </motion.div>
+          <motion.div 
+            className="overflow-hidden group"
+            initial={{ opacity: 0, y: 40, rotate: 2 }}
+            animate={{ opacity: 1, y: 0, rotate: 0 }}
+            transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
             <ImageWithFallback
               src="/notalone/images/process 2.png"
               alt="Process image 2"
-              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105 group-hover:-rotate-1"
             />
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

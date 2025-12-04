@@ -11,27 +11,94 @@ import { Slide7 } from './components/Slide7';
 import { Slide8 } from './components/Slide8';
 
 const slides = [
-  { id: 0, label: 'Intro', component: Slide1 },
-  { id: 1, label: 'Assignment', component: Slide2 },
-  { id: 2, label: 'Methodology', component: Slide3 },
-  { id: 3, label: 'Process', component: Slide4 },
-  { id: 4, label: 'Local models', component: Slide5 },
-  { id: 5, label: 'Final piece', component: Slide6 },
-  { id: 6, label: 'Research', component: Slide7 },
-  { id: 7, label: 'Reflection', component: Slide8 },
+  { id: 0, label: 'INTRO', component: Slide1 },
+  { id: 1, label: 'ASSIGNMENT', component: Slide2 },
+  { id: 2, label: 'METHODOLOGY', component: Slide3 },
+  { id: 3, label: 'PROCESS', component: Slide4 },
+  { id: 4, label: 'LOCAL MODELS', component: Slide5 },
+  { id: 5, label: 'FINAL PIECE', component: Slide6 },
+  { id: 6, label: 'RESEARCH', component: Slide7 },
+  { id: 7, label: 'REFLECTION', component: Slide8 },
 ];
+
+// Dramatic transition variants
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? '100%' : '-100%',
+    opacity: 0,
+    scale: 0.8,
+    rotateY: direction > 0 ? 45 : -45,
+    rotateX: 15,
+    filter: 'blur(10px)',
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    rotateY: 0,
+    rotateX: 0,
+    filter: 'blur(0px)',
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? '-100%' : '100%',
+    opacity: 0,
+    scale: 0.6,
+    rotateY: direction > 0 ? -60 : 60,
+    rotateX: -20,
+    filter: 'blur(20px)',
+  }),
+};
+
+// Glitch effect overlay during transitions
+function GlitchOverlay({ isActive }: { isActive: boolean }) {
+  return (
+    <AnimatePresence>
+      {isActive && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 pointer-events-none z-50"
+          style={{ mixBlendMode: 'difference' }}
+        >
+          {[...Array(5)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute inset-0"
+              style={{
+                background: `linear-gradient(${90 + i * 36}deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%)`,
+              }}
+              animate={{
+                x: [0, (Math.random() - 0.5) * 20, 0],
+                opacity: [0, 0.5, 0],
+              }}
+              transition={{
+                duration: 0.15,
+                delay: i * 0.02,
+                repeat: 2,
+              }}
+            />
+          ))}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState(0);
+  const [showGlitch, setShowGlitch] = useState(false);
 
   const goToSlide = (index: number) => {
     if (index >= 0 && index < slides.length && !isAnimating) {
       setIsAnimating(true);
+      setShowGlitch(true);
       setDirection(index > currentSlide ? 1 : -1);
       setCurrentSlide(index);
-      setTimeout(() => setIsAnimating(false), 600);
+      setTimeout(() => setShowGlitch(false), 300);
+      setTimeout(() => setIsAnimating(false), 800);
     }
   };
 
@@ -59,29 +126,11 @@ export default function App() {
 
   const CurrentSlideComponent = slides[currentSlide].component;
 
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? '100%' : '-100%',
-      opacity: 0,
-      scale: 0.95,
-      rotateY: direction > 0 ? 15 : -15,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      rotateY: 0,
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? '-50%' : '50%',
-      opacity: 0,
-      scale: 0.9,
-      rotateY: direction > 0 ? -10 : 10,
-    }),
-  };
-
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black text-white">
+    <div className="relative w-full h-screen overflow-hidden bg-black text-white" style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>
+      {/* Glitch overlay */}
+      <GlitchOverlay isActive={showGlitch} />
+      
       {/* Exit button - top left */}
       <button
         onClick={() => window.location.href = 'index.html'}
@@ -147,15 +196,18 @@ export default function App() {
             transition={{
               x: { 
                 type: 'spring', 
-                stiffness: 200, 
-                damping: 25,
-                mass: 0.8
+                stiffness: 120, 
+                damping: 20,
+                mass: 1.2
               },
-              opacity: { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] },
-              scale: { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] },
-              rotateY: { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] },
+              opacity: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] },
+              scale: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+              rotateY: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+              rotateX: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+              filter: { duration: 0.4 },
             }}
             className="absolute inset-0"
+            style={{ transformStyle: 'preserve-3d' }}
           >
             <CurrentSlideComponent />
           </motion.div>
