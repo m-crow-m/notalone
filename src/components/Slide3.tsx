@@ -40,7 +40,7 @@ export function Slide3() {
             <ImageWithFallback
               src="/notalone/images/tools.png"
               alt="AI tools and workspace"
-              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
+              className="w-full max-h-[400px] md:max-h-[500px] object-contain transition-transform duration-700 group-hover:scale-105"
             />
           </div>
         </div>
